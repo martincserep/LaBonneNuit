@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/greeting")
+@WebServlet({"", "/greeting"})
 public class GreetingServlet extends HttpServlet {
 
     private final GreetingService service = new GreetingService();
