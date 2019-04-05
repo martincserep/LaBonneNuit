@@ -14,10 +14,10 @@ import java.util.List;
 @WebServlet({"", "/greeting"})
 public class GreetingServlet extends HttpServlet {
 
-    private final GreetingService service = new GreetingService();
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        GreetingService service = (GreetingService) req.getServletContext().getAttribute(GreetingService.class.getName());
+
         List<Greeting> greetings = service.getGreetings();
         req.setAttribute("greetings", greetings);
 
