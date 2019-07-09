@@ -3,6 +3,7 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.UserDao;
 import com.codecool.web.model.User;
 
+import javax.servlet.http.HttpSession;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,19 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
             }
         }
         return null;
+    }
+
+    @Override
+    public void registerCustomer(String getfirstname,String getlastname, String getphonenumber, String getemail, String getusername, String getpassword) throws SQLException{
+        String sql = "INSERT INTO users (firstname,lastname,phonenumber,email,username,password) VALUES (?,?,?,?, ?,?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,getfirstname);
+        statement.setString(2,getlastname);
+        statement.setString(3,getphonenumber);
+        statement.setString(4,getemail);
+        statement.setString(5,getusername);
+        statement.setString(6,getpassword);
+        executeInsert(statement);
     }
 
     private User fetchUser(ResultSet resultSet) throws SQLException {

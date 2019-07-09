@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/register")
+@WebServlet("/registration")
 public final class RegisterServlet extends AbstractServlet {
 
     @Override
@@ -32,9 +32,7 @@ public final class RegisterServlet extends AbstractServlet {
             String username = req.getParameter("username");
             String password = req.getParameter("password");
 
-            User user = registerService.registerUser(firstname,lastname,phonenumber,email,username, password);
-            req.getSession().setAttribute("user", user);
-            sendMessage(resp, HttpServletResponse.SC_OK, user);
+            registerService.registerUser(firstname,lastname,phonenumber,email,username, password);
         } catch (SQLException ex) {
             handleSqlError(resp, ex);
         } catch (ServiceException e) {

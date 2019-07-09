@@ -28,7 +28,13 @@ public final class LoginServlet extends AbstractServlet {
 
             User user = loginService.loginUser(username, password);
             req.getSession().setAttribute("user", user);
+            req.setAttribute("userName",user.getUsername());
+            req.setAttribute("firstName",user.getFirstname());
+            req.setAttribute("lastName",user.getLastname());
+            req.setAttribute("email",user.getEmail());
+            req.setAttribute("phoneNumber",user.getPhonenumber());
             sendMessage(resp, HttpServletResponse.SC_OK, user);
+
         } catch (ServiceException ex) {
             sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
         } catch (SQLException ex) {

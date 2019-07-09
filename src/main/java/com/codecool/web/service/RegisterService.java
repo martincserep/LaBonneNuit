@@ -6,5 +6,5 @@ import com.codecool.web.service.exception.ServiceException;
 import java.sql.SQLException;
 
 public interface RegisterService {
-    User registerUser(String firstname, String lastname, String phonenumber, String email, String username, String password) throws SQLException, ServiceException;
+    void registerUser(String firstname, String lastname, String phonenumber, String email, String username, String password) throws SQLException, ServiceException;
 }

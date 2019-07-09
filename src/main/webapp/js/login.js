@@ -8,6 +8,11 @@ function onLoginResponse() {
     }
 }
 
+function showHomePage() {
+    clearMessages();
+    showContents(['header-content','customer-home-content', 'customer-header-content']);
+}
+
 function onLoginButtonClicked() {
     const loginFormEl = document.forms['login-form'];
 
@@ -31,4 +36,3 @@ function onLoginButtonClicked() {
 function onGoToRegisterButtonClicked(){
     showContents(['register-content']);
 }
-

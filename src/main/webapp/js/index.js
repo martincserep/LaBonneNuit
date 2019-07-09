@@ -112,9 +112,29 @@ function onLoad() {
     logoutContentDivEl = document.getElementById('logout-content');
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
-
+    const registrationButtonEl = document.getElementById('registration-button');
+    registrationButtonEl.addEventListener('click', onRegistrationButtonClicked);
+    const backtologinButtonEl = document.getElementById('back-to-login-button');
+    backtologinButtonEl.addEventListener('click', onBackToLoginButtonClicked);
+    const personalDatasButtonEl = document.getElementById('my-personal-datas-button');
+    personalDatasButtonEl.addEventListener('click', onPersonalDatasSettingButtonClicked);
+    const shippingAddressesButtonEl = document.getElementById('shipping-address-button');
+    shippingAddressesButtonEl.addEventListener('click', onShippingAddressSettingButtonClicked);
+    const deleteProfileButtonEl = document.getElementById('delete-registration-button');
+    deleteProfileButtonEl.addEventListener('click', onDeleteRegistrationButtonClicked);
+    const goToProfileButtonEl = document.getElementById('go-to-profile-button');
+    goToProfileButtonEl.addEventListener('click', onProfilePageButtonClicked);
     const logoutButtonEl = document.getElementById('logout-button');
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
+
+    const goToAppertizersButtonEl = document.getElementById('go-to-appertizers-button');
+    goToAppertizersButtonEl.addEventListener('click', showAppertizers);
+    const goToSoupsButtonEl = document.getElementById('go-to-soups-button');
+    goToSoupsButtonEl.addEventListener('click', showSoups);
+    const goToMainDishesButtonEL = document.getElementById('go-to-main-dishes-button');
+    goToMainDishesButtonEL.addEventListener('click', showMainDishes);
+    const goToDessertsButtonEl = document.getElementById('go-to-desserts-button');
+    goToDessertsButtonEl.addEventListener('click', showDesserts);
 
     if (hasAuthorization()) {
         onCustomerProfileLoad(getAuthorization());

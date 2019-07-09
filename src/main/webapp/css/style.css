@@ -24,7 +24,7 @@ body{
     align-items: center;
 }
 .title{
-     width: 200px;
+     width: 250px;
 }
 .header-child{
     background-color: #D4AF37;
@@ -39,7 +39,15 @@ body{
     display: flex;
 }
 .header-child button{
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
     margin: 0 10px;
+    border: #f2f2f2 2px solid;
+    background-color: #D4AF37;
+    color: #f2f2f2;
+}
+.header-child button:hover{
+    background-color: #b3902c;
 }
 #customer-header-content{
 }
@@ -99,4 +107,63 @@ form div i{
     margin: 10px 0;
     height: 50px;
     background: #f2f2f2;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+
+.dropdown-menu {
+    background-color: #D4AF37;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    padding: 10px 10px;
+    z-index: 1;
+}
+
+.dropdown-menu button {
+}
+
+.profile{
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+.profile-menu-box{
+    display: block;
+    width: 30%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+.profile-settings-box{
+    width: 60%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.profile-settings-box-header{
+    text-align: center;
+    height: 50px;
+    background-color: #f2f2f2;
+    color: #2f3542;
+    font-size: 48px;
+}
+
+.profile button{
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    margin: 5px 10px;
+    border: #f2f2f2 2px solid;
+    background-color: #2f3542;
+    color: #f2f2f2;
+}
+.cart{
+    display: inline-block;
 }

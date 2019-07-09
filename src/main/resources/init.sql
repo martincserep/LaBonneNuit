@@ -1,6 +1,8 @@
-DROP TABLE IF EXISTS reservations;
+DROP TABLE IF EXISTS addresses;
+DROP TABLE IF EXISTS orders_foods;
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS alltable;
+DROP TABLE IF EXISTS foods;
+DROP TABLE IF EXISTS orders;
 
 CREATE TABLE users(
     userid SMALLSERIAL PRIMARY KEY,
@@ -12,17 +14,36 @@ CREATE TABLE users(
     password VARCHAR(30)
 );
 
-CREATE TABLE reservations(
-    reservationid SMALLSERIAL PRIMARY KEY,
-    customerid SMALLINT,
-    reservation_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    accepted BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (customerid) REFERENCES users (userid)
+CREATE TABLE foods(
+  foodid SMALLSERIAL PRIMARY KEY,
+  name VARCHAR(30) NOT NULL,
+  description VARCHAR(30),
+  price FLOAT NOT NULL,
+  image varchar(255),
+  category varchar(30)
 );
 
-CREATE TABLE alltable(
-    tableid SMALLSERIAL PRIMARY KEY,
-    numberofseats SMALLINT NOT NULL
+CREATE TABLE orders(
+    orderid SMALLSERIAL PRIMARY KEY,
+    total FLOAT NOT NULL,
+    addressid SMALLINT NOT NULL,
+    orderdate TIMESTAMP
+);
+
+CREATE TABLE orders_foods(
+    ofid SMALLSERIAL PRIMARY KEY,
+    orderid SMALLINT,
+    foodid SMALLINT,
+    quantity SMALLINT,
+    FOREIGN KEY (orderid) REFERENCES orders(orderid),
+    FOREIGN KEY (foodid) REFERENCES foods(foodid)
+);
+
+CREATE TABLE addresses(
+  addressid SMALLSERIAL PRIMARY KEY,
+  city VARCHAR(30),
+  address VARCHAR(30),
+  postal_code VARCHAR(30)
 );
 
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password) VALUES

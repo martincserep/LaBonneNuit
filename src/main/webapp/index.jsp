@@ -13,13 +13,17 @@
     <c:url value="js/auth.js" var="authScriptUrl"/>
     <c:url value="js/index.js" var="indexScriptUrl"/>
     <c:url value="js/login.js" var="loginScriptUrl"/>
+    <c:url value="js/register.js" var="registerScriptUrl"/>
     <c:url value="js/profile.js" var="profileScriptUrl"/>
+    <c:url value="js/menu.js" var="menuScriptUrl"/>
     <c:url value="js/logout.js" var="logoutScriptUrl"/>
 
     <script src="${authScriptUrl}"></script>
     <script src="${indexScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
+    <script src="${registerScriptUrl}"></script>
     <script src="${profileScriptUrl}"></script>
+    <script src="${menuScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
 </head>
 <body>
@@ -27,9 +31,22 @@
 <div id="header-content" class="hidden content">
     <div class="header-child">
         <div class="title">
-            <h1>La Bonne Nuit</h1>
+            <a onclick="showHomePage();"><h1>La Bonne Nuit</h1></a>
         </div>
         <div id="customer-header-content" class="content">
+            <div class="dropdown">
+                <button id="go-to-foods-button">Menu</button>
+                <div class="dropdown-menu">
+                    <button id="go-to-appertizers-button">Appertizers</button>
+                    <button id="go-to-soups-button">Soups</button>
+                    <button id="go-to-main-dishes-button">Main Dishes</button>
+                    <button id="go-to-desserts-button">Desserts</button>
+                </div>
+            </div>
+            <div class="cart">
+            <button id="go-to-cart-button"><i class="fas fa-shopping-cart fa-1x" aria-hidden="true"></i>Cart(<span id="cart-count">0</span>)</button>
+            </div>
+            <button id="go-to-profile-button"><span id="user-first-name">Profile</span></button>
             <button id="logout-button">Logout</button>
         </div>
         <div id="restaurant-header-content" class="hidden content">
@@ -51,23 +68,23 @@
                 <input type="password" name="password" id="password" placeholder="Password">
             </div>
             <button id="login-button">Login</button>
-            <button id="register-button">Sign Up</button>
+            <button onclick="onGoToRegisterButtonClicked();">Register</button>
         </form>
     </div>
 </div>
 <!-- Register -->
 <div id="register-content" class="hidden content">
     <div class="register-child">
-        <form class="login-register-form">
+        <form class="login-register-form" id="registration-form" onsubmit="return false;">
                 <img src="images/logo.png">
                 <h1>Sign Up</h1>
-                <input type="text" placeholder="First Name">
-                <input type="text" placeholder="Last Name">
-                <input type="text" placeholder="Phone Number">
-                <input type="text" placeholder="E-Mail">
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <input type="password" placeholder="Re-Password">
+                <input type="text" name="firstname" id="firstname" placeholder="First Name">
+                <input type="text" name="lastname" id="lastname" placeholder="Last Name">
+                <input type="text" name="phonenumber" id="phonenumber" placeholder="Phone Number">
+                <input type="text" name="email" id="email" placeholder="E-Mail">
+                <input type="text" name="username" id="regusername" placeholder="Username">
+                <input type="password" name="password" id="regpassword" placeholder="Password">
+                <input type="password" name="repassword" id="regrepassword" placeholder="Re-Password">
                 <button id="registration-button">Sign Up</button>
                 <button id="back-to-login-button">Back To Login</button>
             </form>
@@ -75,16 +92,45 @@
 </div>
 <!-- Customer sections -->
 <div id="customer-home-content" class="hidden content">
-    <span id="user-firstname"></span></p>
-    <span id="user-lastname"></span></p>
-    <span id="user-phonenumber"></span></p>
-    <span id="user-email"></span></p>
-    <span id="user-username"></span></p>
-    <span id="user-password"></span></p>
+    <table id="menu">
+
+    </table>
 </div>
-<div id="customer-reservations-content" class="hidden content">
+<div id="customer-appetizers-content" class="hidden content">
+    appe
+</div>
+<div id="customer-soups-content" class="hidden content">
+    soup
+</div>
+<div id="customer-main-dishes-content" class="hidden content">
+    md
+</div>
+<div id="customer-desserts-content" class="hidden content">
+    showDesserts
+</div>
+<div id="customer-cart-content" class="hidden content">
 </div>
 <div id="customer-profile-content" class="hidden content">
+    <div class="profile">
+        <div class="profile-menu-box">
+            <button id="my-personal-datas-button">My personal datas</button>
+            <button id="shipping-address-button">Shipping addresses</button>
+            <button id="delete-registration-button">Delete my registration</button>
+        </div>
+        <div class="profile-settings-box">
+            <div class="profile-settings-box-header">
+                <span id="profile-settings-header-title"></span>
+            </div>
+            <div class="profile-settings-box-content">
+                <div id="my-personal-datas-content" class="content">
+
+                </div>
+                <div id="shipping-addresses-content" class="hidden content">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Restaurant sections -->
 <div id="restaurant-home-content" class="hidden content">
