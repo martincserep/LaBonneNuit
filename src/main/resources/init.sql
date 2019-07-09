@@ -49,3 +49,24 @@ CREATE TABLE addresses(
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password) VALUES
 ('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela'),
 ('Martin','Cserép','06701234567','martin@martin.hu', 'martin','martin');
+
+INSERT INTO foods (name, price, image, category) VALUES
+('Fried shrimps',2480,'','appetizers'),
+('Fried muslitos',1980,'','appetizers'),
+('Breaded butterfly shrimps',1980,'','appetizers'),
+('mozzarella wrapped in sous vide sirilion stick with BBQ sauce and chives',1680,'','appetizers'),
+('Spicy fried edamame beans with garlic',1580,'','appetizers'),
+('Ramen',2780,'','soups'),
+('Thai laksa soup',1780,'','soups'),
+('Miso soup',680,'','soups'),
+('Pho bo',1980,'','soups'),
+('Fried noodles with vegetables, green curry and almond crusted fried chicken breast',2980,'','main-dishes'),
+('sous vide duck breas with peach and teriyaki sauce',3580,'','main-dishes'),
+('Crispy squid rings with miso mustard sauce on green salad',2720,'','main-dishes'),
+('Boppatsu',2580,'','main-dishes'),
+('chocolate spring rolls with vanilla ice cream',1280,'','desserts'),
+('Cripsy tortilla rolls with mango puree and white chocolate mousse',1280,'','desserts'),
+('Almond coated cottage cheese balls with strawberry sauce',1360,'','desserts'),
+('Mochi',1580,'','desserts'),
+('Mango-Passion fruit cake',1480,'','desserts'),
+('Belgian chocolate cake',1480,'','desserts');
