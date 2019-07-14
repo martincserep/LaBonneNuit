@@ -92,7 +92,7 @@
 </div>
 <!-- Customer sections -->
 <div id="customer-home-content" class="hidden content">
-    <table id="menu">
+    <table id="menu-table">
 
     </table>
 </div>
@@ -109,6 +109,16 @@
     showDesserts
 </div>
 <div id="customer-cart-content" class="hidden content">
+    Cart afsfasfasf
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
 </div>
 <div id="customer-profile-content" class="hidden content">
     <div class="profile">
