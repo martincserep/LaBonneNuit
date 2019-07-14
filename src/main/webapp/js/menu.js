@@ -23,5 +23,28 @@ function showDesserts() {
 }
 
 function showAllFood() {
-    clearMessages();
+clearMessages();
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError)
+    xhr.open('GET','protected/allfoods?')
+    xhr.send();
+    showContents(['header-content','customer-header-content','customer-home-content'])
+    foodsTabEl = document.getElementById('menu-table');
+    removeAllChildren(foodsTabEl);
+    for (let i = 0; i < foods.length; i++){
+        let food = foods[i];
+        trEl = document.createElement('tr');
+        imgTdEl = generateImageTdEl(food);
+        tdDetailEl = generateDetailTdElement(food);
+        trEl.appendChild(imgTdEl);
+        trEl.appendChild(tdDetailEl);
+        foodsTabEl.appendChild(trEl);
+    }
+}
+
+function generateImageTdEl(food){
+    tdImgEl = document.createElement('td');
+    img = createImgElement(food.pictureURL,200,200)
+    tdImgEl.appendChild(img);
+    return tdImgEl;
 }
