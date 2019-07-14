@@ -92,6 +92,7 @@
 </div>
 <!-- Customer sections -->
 <div id="customer-home-content" class="hidden content">
+    asdasd
     <table id="menu-table">
 
     </table>

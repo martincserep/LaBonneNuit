@@ -22,13 +22,8 @@ function showDesserts() {
     showContents(['header-content','customer-header-content','customer-desserts-content']);
 }
 
-function showAllFood() {
-clearMessages();
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('error', onNetworkError)
-    xhr.open('GET','protected/allfoods?')
-    xhr.send();
-    showContents(['header-content','customer-header-content','customer-home-content'])
+function listAllFood(foods)
+    showContents(['header-content','customer-header-content','customer-home-content']);
     foodsTabEl = document.getElementById('menu-table');
     removeAllChildren(foodsTabEl);
     for (let i = 0; i < foods.length; i++){
@@ -40,6 +35,24 @@ clearMessages();
         trEl.appendChild(tdDetailEl);
         foodsTabEl.appendChild(trEl);
     }
+
+function allFoodLoadResponse(){
+    if (this.status === OK){
+        clearMessages();
+        listAllFood(JSON.parse(this.responseText));
+    } else{
+        onOtherResponse(customerHomeContentDivEl,this)
+    }
+}
+
+function showAllFood() {
+    clearMessages();
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', allFoodLoadResponse)
+    xhr.addEventListener('error', onNetworkError)
+    xhr.open('GET','protected/allfoods?')
+    xhr.send();
+
 }
 
 function generateImageTdEl(food){
