@@ -29,5 +29,4 @@ public class FullMenu extends AbstractServlet {
             e.printStackTrace();
         }
     }
-
 }

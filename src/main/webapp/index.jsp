@@ -35,7 +35,7 @@
         </div>
         <div id="customer-header-content" class="content">
             <div class="dropdown">
-                <button id="go-to-foods-button">Menu</button>
+                <a href="javascript:void(0);" onclick="showAllFood();"><button>Menu</button></a>
                 <div class="dropdown-menu">
                     <button id="go-to-appertizers-button">Appertizers</button>
                     <button id="go-to-soups-button">Soups</button>

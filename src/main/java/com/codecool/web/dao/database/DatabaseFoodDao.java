@@ -59,7 +59,7 @@ public final class DatabaseFoodDao extends AbstractDao implements FoodDao {
         int id = resultSet.getInt("foodid");
         String name = resultSet.getString("name");
         int price = resultSet.getInt("price");
-        String pictureURL = resultSet.getString("pictuer");
+        String pictureURL = resultSet.getString("image");
         String category = resultSet.getString("category");
 
         return new Food(id,name,price,pictureURL,category);

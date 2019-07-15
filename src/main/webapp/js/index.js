@@ -134,9 +134,9 @@ function onLoad() {
     const goToMainDishesButtonEL = document.getElementById('go-to-main-dishes-button');
     goToMainDishesButtonEL.addEventListener('click', showMainDishes);
     const goToDessertsButtonEl = document.getElementById('go-to-desserts-button');
-    goToDessertsButtonEl.addEventListener('click', showDesserts);*/
+    goToDessertsButtonEl.addEventListener('click', showDesserts);
     const goToFoodsButtonEl = document.getElementById('go-to-foods-button');
-    goToFoodsButtonEl.addEventListener('click', showAllFood);
+    goToFoodsButtonEl.addEventListener('click', showAllFood);*/
 
     if (hasAuthorization()) {
         onCustomerProfileLoad(getAuthorization());
