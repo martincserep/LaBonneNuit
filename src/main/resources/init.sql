@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS addresses;
-DROP TABLE IF EXISTS orders_foods;
+DROP TABLE IF EXISTS cart;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS foods;
 DROP TABLE IF EXISTS orders;
@@ -11,7 +11,8 @@ CREATE TABLE users(
     phonenumber VARCHAR(30),
     email VARCHAR(30),
     username VARCHAR(30),
-    password VARCHAR(30)
+    password VARCHAR(30),
+    userrole VARCHAR(20)
 );
 
 CREATE TABLE foods(
@@ -22,19 +23,13 @@ CREATE TABLE foods(
   category varchar(30)
 );
 
-CREATE TABLE orders(
-    orderid SMALLSERIAL PRIMARY KEY,
-    total FLOAT NOT NULL,
-    addressid SMALLINT NOT NULL,
-    orderdate TIMESTAMP
-);
-
-CREATE TABLE orders_foods(
-    ofid SMALLSERIAL PRIMARY KEY,
-    orderid SMALLINT,
+CREATE TABLE cart(
+    cartid SMALLSERIAL PRIMARY KEY,
+    userid SMALLINT,
     foodid SMALLINT,
     quantity SMALLINT,
-    FOREIGN KEY (orderid) REFERENCES orders(orderid),
+    price smallint,
+    FOREIGN KEY (userid) REFERENCES users(userid),
     FOREIGN KEY (foodid) REFERENCES foods(foodid)
 );
 
@@ -45,9 +40,19 @@ CREATE TABLE addresses(
   postal_code VARCHAR(30)
 );
 
-INSERT INTO users (firstname,lastname,phonenumber,email,username,password) VALUES
-('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela'),
-('Martin','Cserép','06701234567','martin@martin.hu', 'martin','martin');
+CREATE TABLE orders(
+   orderid SMALLSERIAL PRIMARY KEY,
+   cartid SMALLINT NOT NULL,
+   total FLOAT NOT NULL,
+   addressid SMALLINT NOT NULL,
+   orderdate TIMESTAMP,
+   FOREIGN KEY (cartid) REFERENCES cart(cartid)
+);
+
+INSERT INTO users (firstname,lastname,phonenumber,email,username,password,userrole) VALUES
+('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela','EMPLOYEE'),
+('Sándor','Nagy','06707654321','sanyi@sanyi.hu', 'sanyi','sanyi','CUSTOMER'),
+('Martin','Cserép','06701234567','martin@martin.hu', 'martin','martin','MANAGER');
 
 INSERT INTO foods (name, price, image, category) VALUES
 ('Fried shrimps',2480,'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2018/08/cajun-fried-shrimp.jpg?itok=e9Rzf_k5','appetizers'),

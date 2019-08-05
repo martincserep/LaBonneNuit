@@ -41,3 +41,19 @@ function onRestaurantProfileLoad(user) {
     userUsernameSpanEl.textContent = user.username;
     userPasswordSpanEl.textContent = user.password;
 }
+
+function deleteUser() {
+    if (confirm("Are you sure about that?")) {
+        const params = new URLSearchParams();
+        const user = getAuthorization();
+        const id = user.id;
+        params.append('userId',id);
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', onLogoutButtonClicked);
+        xhr.addEventListener('error', onNetworkError);
+        xhr.open('DELETE', 'protected/profile?' + params.toString());
+        xhr.send();
+    } else {
+        alert("Then why did you click on it?");
+    }
+}

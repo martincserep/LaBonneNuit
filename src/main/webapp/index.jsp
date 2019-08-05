@@ -37,10 +37,10 @@
             <div class="dropdown">
                 <a href="javascript:void(0);" onclick="showAllFood();"><button>Menu</button></a>
                 <div class="dropdown-menu">
-                    <button id="go-to-appertizers-button">Appertizers</button>
-                    <button id="go-to-soups-button">Soups</button>
-                    <button id="go-to-main-dishes-button">Main Dishes</button>
-                    <button id="go-to-desserts-button">Desserts</button>
+                    <a href="javascript:void(0);" onclick="showAppertizers();"><button id="go-to-appertizers-button">Appertizers</button></a>
+                    <a href="javascript:void(0);" onclick="showSoups();"><button id="go-to-soups-button">Soups</button></a></a>
+                    <a href="javascript:void(0);" onclick="showMainDishes();"><button id="go-to-main-dishes-button">Main Dishes</button></a>
+                    <a href="javascript:void(0);" onclick="showDesserts();"><button id="go-to-desserts-button">Desserts</button></a>
                 </div>
             </div>
             <div class="cart">
@@ -92,41 +92,16 @@
 </div>
 <!-- Customer sections -->
 <div id="customer-home-content" class="hidden content">
-    asdasd
     <table id="menu-table">
 
     </table>
-</div>
-<div id="customer-appetizers-content" class="hidden content">
-    appe
-</div>
-<div id="customer-soups-content" class="hidden content">
-    soup
-</div>
-<div id="customer-main-dishes-content" class="hidden content">
-    md
-</div>
-<div id="customer-desserts-content" class="hidden content">
-    showDesserts
-</div>
-<div id="customer-cart-content" class="hidden content">
-    Cart afsfasfasf
-    <table id="cart-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
 </div>
 <div id="customer-profile-content" class="hidden content">
     <div class="profile">
         <div class="profile-menu-box">
             <button id="my-personal-datas-button">My personal datas</button>
             <button id="shipping-address-button">Shipping addresses</button>
-            <button id="delete-registration-button">Delete my registration</button>
+            <a href="javascript:void(0);" onclick="deleteUser();"><button id="delete-registration-button">Delete my registration</button></a>
         </div>
         <div class="profile-settings-box">
             <div class="profile-settings-box-header">

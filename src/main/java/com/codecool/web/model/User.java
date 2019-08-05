@@ -5,21 +5,24 @@ import java.util.Objects;
 public final class User extends AbstractModel {
 
 
+    private int id;
+    private String firstname;
+    private String lastname;
+    private String phonenumber;
+    private String email;
+    private String username;
+    private String password;
+    private Role role;
 
-    private final String firstname;
-    private final String lastname;
-    private final String phonenumber;
-    private final String email;
-    private final String username;
-    private final String password;
-
-    public User(String firstname, String lastname, String phonenumber, String email, String username, String password) {
+    public User(Integer id, String firstname, String lastname, String phonenumber, String email, String username, String password, Role role) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phonenumber = phonenumber;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = role;
     }
 
     public String getFirstname() {
@@ -44,6 +47,9 @@ public final class User extends AbstractModel {
     public String getPassword() {
         return password;
     }
+    public Role getRole() {
+        return role;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,5 +64,10 @@ public final class User extends AbstractModel {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), username, password);
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

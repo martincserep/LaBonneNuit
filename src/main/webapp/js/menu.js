@@ -1,25 +1,28 @@
 function showAppertizers() {
     clearMessages();
-
-    showContents(['header-content','customer-header-content','customer-appetizers-content']);
+    showByCategory("appetizers");
 }
 
-function showSoups() {
+function showByCategory(category) {
     clearMessages();
+    const params = new URLSearchParams();;
+    params.append('category',category);
+    xhr.addEventListener('load', allFoodLoadResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET','protected/foodbycategory?' + params.toString());
+    xhr.send(params);
+}
+function showSoups() {
+    showByCategory("soups");
 
-    showContents(['header-content','customer-header-content','customer-soups-content']);
 }
 
 function showMainDishes() {
-    clearMessages();
-
-    showContents(['header-content','customer-header-content','customer-main-dishes-content']);
+    showByCategory("main-dishes");
 }
 
 function showDesserts() {
-    clearMessages();
-
-    showContents(['header-content','customer-header-content','customer-desserts-content']);
+    showByCategory("desserts");
 }
 
 function listAllFood(foods) {
@@ -33,6 +36,9 @@ function listAllFood(foods) {
         tdDetailEl = generateDetailTdElement(food);
         trEl.appendChild(imgTdEl);
         trEl.appendChild(tdDetailEl);
+        const deleteButton = createButtonTr('Add To Cart','Add to Cart');
+        deleteButton.onclick = function () { onAddToCartButtonClicked(food.foodId) };
+        trEl.appendChild(deleteButton);
         foodsTabEl.appendChild(trEl);
     }
 }
@@ -89,4 +95,8 @@ function createLiElement(text) {
     liEl = document.createElement('li');
     liEl.innerHTML = text;
     return liEl;
+}
+
+function onAddToCartButtonClicked(id) {
+    alert(id);
 }

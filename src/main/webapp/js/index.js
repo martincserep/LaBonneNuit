@@ -29,7 +29,6 @@ function newMessage(targetEl, cssClass, message) {
     const pEl = document.createElement('p');
     pEl.classList.add('message');
     pEl.classList.add(cssClass);
-    pEl.textContent = message;
 
     targetEl.appendChild(pEl);
 }
@@ -127,20 +126,39 @@ function onLoad() {
     const logoutButtonEl = document.getElementById('logout-button');
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
 
-    /*const goToAppertizersButtonEl = document.getElementById('go-to-appertizers-button');
-    goToAppertizersButtonEl.addEventListener('click', showAppertizers);
-    const goToSoupsButtonEl = document.getElementById('go-to-soups-button');
-    goToSoupsButtonEl.addEventListener('click', showSoups);
-    const goToMainDishesButtonEL = document.getElementById('go-to-main-dishes-button');
-    goToMainDishesButtonEL.addEventListener('click', showMainDishes);
-    const goToDessertsButtonEl = document.getElementById('go-to-desserts-button');
-    goToDessertsButtonEl.addEventListener('click', showDesserts);
-    const goToFoodsButtonEl = document.getElementById('go-to-foods-button');
-    goToFoodsButtonEl.addEventListener('click', showAllFood);*/
+
+    function getAuthorization() {
+        return JSON.parse(localStorage.getItem('user'));
+    }
+
 
     if (hasAuthorization()) {
         onCustomerProfileLoad(getAuthorization());
     }
 }
+
+function createButtonTd(name, value) {
+    const buttonEl = document.createElement('input');
+    buttonEl.setAttribute('type', 'button');
+    buttonEl.setAttribute('name', name);
+    buttonEl.setAttribute('value', value);
+
+    const tdEl = document.createElement('td');
+    tdEl.appendChild(buttonEl);
+    return tdEl;
+}
+
+
+function createButtonTr(name, value) {
+    const buttonEl = document.createElement('input');
+    buttonEl.setAttribute('type', 'button');
+    buttonEl.setAttribute('name', name);
+    buttonEl.setAttribute('value', value);
+
+    const trEl = document.createElement('tr');
+    trEl.appendChild(buttonEl);
+    return trEl;
+}
+
 
 document.addEventListener('DOMContentLoaded', onLoad);

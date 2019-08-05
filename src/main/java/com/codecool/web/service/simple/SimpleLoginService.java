@@ -20,8 +20,10 @@ public final class SimpleLoginService implements LoginService {
     public User loginUser(String username, String password) throws SQLException, ServiceException {
         try {
             User user = userDao.findByUsername(username);
-            if (user == null || !user.getPassword().equals(password)) {
-                throw new ServiceException("Bad login");
+            if (user == null) {
+                throw new ServiceException("There is no user under the name " + username + ".");
+            } else if (!user.getPassword().equals(password)) {
+                throw new ServiceException("Wrong password");
             }
             return user;
         } catch (IllegalArgumentException ex) {

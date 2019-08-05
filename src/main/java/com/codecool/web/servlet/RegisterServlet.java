@@ -34,7 +34,7 @@ public final class RegisterServlet extends AbstractServlet {
 
             registerService.registerUser(firstname,lastname,phonenumber,email,username, password);
         } catch (SQLException ex) {
-            handleSqlError(resp, ex);
+            handleError(resp, ex, false);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

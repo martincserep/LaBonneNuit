@@ -19,8 +19,10 @@ public final class DatabaseFoodDao extends AbstractDao implements FoodDao {
             throw new IllegalArgumentException("Category can not be null or empty");
         }
         String sql = "SELECT * FROM foods WHERE category = ?";
-        try (Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1,category);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()){
                 foods.add(fetchFood(resultSet));
             }

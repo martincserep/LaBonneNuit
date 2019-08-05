@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -29,8 +31,9 @@ abstract class AbstractServlet extends HttpServlet {
         om.writeValue(resp.getOutputStream(), object);
     }
 
-    void handleSqlError(HttpServletResponse resp, SQLException ex) throws IOException {
-        sendMessage(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+    void handleError(HttpServletResponse resp, Exception ex, boolean isServerSide) throws IOException {
+        int responseStatusCode = isServerSide ? HttpServletResponse.SC_INTERNAL_SERVER_ERROR : HttpServletResponse.SC_BAD_REQUEST;
+        sendMessage(resp, responseStatusCode , ex.getMessage());
         ex.printStackTrace();
     }
 }
