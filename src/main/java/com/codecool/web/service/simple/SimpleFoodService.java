@@ -29,4 +29,5 @@ public class SimpleFoodService implements FoodService {
     public List<Food> findAllFoods() throws SQLException {
         return foodDao.findAllFood();
     }
+
 }

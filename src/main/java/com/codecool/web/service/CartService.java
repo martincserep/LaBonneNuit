@@ -11,10 +11,12 @@ public interface CartService {
 
     List<Cart> findAllByUserId(int userId) throws SQLException;
 
-    void updateCart(int userId, Food food) throws SQLException;
+    void AddToCart(int userId, Food food) throws SQLException;
 
     int getTotalPrice(int userId) throws SQLException, ServiceException;
 
-    Cart findProductInCart(int userId, int productId) throws SQLException;
+    Cart findFoodInCart(int userId, int productId) throws SQLException;
+
+
 
 }

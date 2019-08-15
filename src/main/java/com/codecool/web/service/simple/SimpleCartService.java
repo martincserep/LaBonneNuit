@@ -6,6 +6,7 @@ import com.codecool.web.model.Food;
 import com.codecool.web.service.CartService;
 import com.codecool.web.service.exception.ServiceException;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,12 +20,12 @@ public class SimpleCartService implements CartService {
 
     @Override
     public List<Cart> findAllByUserId(int userId) throws SQLException {
-        return null;
+        return cartDao.findAllByUserId(userId);
     }
 
     @Override
-    public void updateCart(int userId, Food food) throws SQLException {
-
+    public void AddToCart(int userId, Food food) throws SQLException {
+        cartDao.addFood(userId,food);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class SimpleCartService implements CartService {
     }
 
     @Override
-    public Cart findProductInCart(int userId, int productId) throws SQLException {
-        return null;
+    public Cart findFoodInCart(int userId, int foodId) throws SQLException {
+        return cartDao.findFoodInCart(userId,foodId);
     }
 }

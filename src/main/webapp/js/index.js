@@ -9,6 +9,7 @@ let registerContentDivEl;
 let profileContentDivEl;
 let customerHomeContentDivEl;
 let customerReservationContentDivEl;
+let customerCartContentDivEl;
 let customerProfileContentDivEl;
 let restaurantHomeContentDivEl;
 let restaurantReservationContentDivEl;
@@ -105,6 +106,7 @@ function onLoad() {
     customerHomeContentDivEl = document.getElementById('customer-home-content');
     customerReservationContentDivEl = document.getElementById('customer-reservations-content');
     customerProfileContentDivEl = document.getElementById('customer-profile-content');
+    customerCartContentDivEl = document.getElementById('customer-cart-content');
     restaurantHomeContentDivEl = document.getElementById('restaurant-home-content');
     restaurantReservationContentDivEl = document.getElementById('restaurant-reservations-content');
     restaurantEmployeesContentDivEl = document.getElementById('restaurant-employees-content');
@@ -125,6 +127,8 @@ function onLoad() {
     goToProfileButtonEl.addEventListener('click', onProfilePageButtonClicked);
     const logoutButtonEl = document.getElementById('logout-button');
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
+    const goToCartButtonEl = document.getElementById('go-to-cart-button');
+    goToCartButtonEl.addEventListener('click',onCartClicked);
 
 
     function getAuthorization() {

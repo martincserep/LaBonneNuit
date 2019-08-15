@@ -98,5 +98,25 @@ function createLiElement(text) {
 }
 
 function onAddToCartButtonClicked(id) {
-    alert(id);
+    const params = new URLSearchParams();
+    params.append('foodId',id);
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onOrderFoodResponse);
+    xhr.addEventListener('error',onNetworkError);
+    xhr.open('PUT','protected/cart?' + params.toString());
+    xhr.send()
+
+}
+const items = [];
+function onOrderFoodResponse() {
+    if(this.status === OK){
+        const cartItem = JSON.parse(this.responseText);
+        console.log(this.responseText);
+        items.push(cartItem);
+        const cartItemCount = document.getElementById('cart-count');
+        console.log(items);
+        document.getElementById('cart-count').innerHTML = items.length;
+    }else {
+        onOtherResponse();
+    }
 }

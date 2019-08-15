@@ -17,6 +17,7 @@
     <c:url value="js/profile.js" var="profileScriptUrl"/>
     <c:url value="js/menu.js" var="menuScriptUrl"/>
     <c:url value="js/logout.js" var="logoutScriptUrl"/>
+    <c:url value="js/cart.js" var="cartScriptUrl"/>
 
     <script src="${authScriptUrl}"></script>
     <script src="${indexScriptUrl}"></script>
@@ -25,6 +26,7 @@
     <script src="${profileScriptUrl}"></script>
     <script src="${menuScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
+    <script src="${cartScriptUrl}"></script>
 </head>
 <body>
 <!-- Headers -->
@@ -92,9 +94,11 @@
 </div>
 <!-- Customer sections -->
 <div id="customer-home-content" class="hidden content">
-    <table id="menu-table">
+    <div class="menu-table">
+        <table id="menu-table">
 
-    </table>
+        </table>
+    </div>
 </div>
 <div id="customer-profile-content" class="hidden content">
     <div class="profile">
@@ -117,6 +121,12 @@
             </div>
         </div>
     </div>
+</div>
+<div id="customer-cart-content" class="hidden content">
+    <ul id="summary">
+
+    </ul>
+    <button id="order-button">Order</button>
 </div>
 <!-- Restaurant sections -->
 <div id="restaurant-home-content" class="hidden content">

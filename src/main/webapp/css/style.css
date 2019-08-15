@@ -166,4 +166,17 @@ form div i{
 }
 .cart{
     display: inline-block;
+
+}
+
+.menu-table tr {
+    border: 2px solid #D4AF37;
+}
+
+.menu-table {
+    display: flex;
+    align-items: center;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
