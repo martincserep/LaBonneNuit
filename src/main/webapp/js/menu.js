@@ -26,7 +26,18 @@ function showDesserts() {
 }
 
 function listAllFood(foods) {
-    showContents(['header-content','customer-header-content','customer-home-content']);
+    user = getAuthorization();
+    if(user.role=="MANAGER"){
+        showContents(['header-content','customer-header-content','customer-home-content','manager-header','employee-header']);
+    }
+    else if(user.role=="EMPLOYEE") {
+        showContents(['header-content','customer-header-content','customer-home-content','employee-header']);
+
+    }
+    else {
+        showContents(['header-content','customer-header-content','customer-home-content']);
+    }
+
     foodsTabEl = document.getElementById('menu-table');
     removeAllChildren(foodsTabEl);
     for (let i = 0; i < foods.length; i++){
@@ -79,12 +90,14 @@ function createImgElement(url, width, height) {
 
 function generateDetailTdElement(food) {
     tdDetailEl = document.createElement('td');
+    tdDetailEl.classList.add("food-details");
     h3El = document.createElement('h3');
     h3El.innerHTML = food.name;
 
     ulEl = document.createElement('ul');
     ulEl.appendChild(createLiElement('Price: ' + food.price));
     ulEl.appendChild(createLiElement(food.category));
+    ulEl.classList.add("food-details-li");
 
     tdDetailEl.appendChild(h3El);
     tdDetailEl.appendChild(ulEl);

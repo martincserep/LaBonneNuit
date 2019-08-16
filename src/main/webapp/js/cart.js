@@ -9,7 +9,16 @@ function onCartClicked(){
 function onCartResponse(){
   if (this.status === OK) {
     clearMessages();
-    showContents(['header-content','customer-cart-content']);
+    user = getAuthorization();
+    if(user.role=="MANAGER"){
+      showContents(['header-content','customer-header-content','manager-header','employee-header','customer-cart-content']);
+    }
+    else if(user.role=="EMPLOYEE") {
+      showContents(['header-content','customer-header-content','employee-header','customer-cart-content']);
+    }
+    else {
+      showContents(['header-content','customer-header-content','customer-cart-content']);
+    }
     showCart(JSON.parse(this.responseText));
   } else{
     onOtherResponse(customerCartContentDivEl,this);
@@ -23,22 +32,23 @@ function showCart(cartDto){
   Object.keys(result).map(function(key, index) {
     console.log(Object.keys(result)[index], result[Object.keys(result)[index]])
   });
-  cartTableEl = document.getElementById("cart-table");
-  cartTableBodyEl = cartTableEl.querySelector("tbody");
+  //cartTableEl = document.getElementById("cart-table");
+  //cartTableBodyEl = cartTableEl.querySelector("tbody");
   const cartItems = cartDto.cartItems;
   const totalPrice = cartDto.price;
 
-  removeAllChildren(cartTableBodyEl);
+  //removeAllChildren(cartTableBodyEl);
   document.getElementById("order-button").disabled = true;
   let message = "Empty";
-  if (cartItems.length > 0){
+  document.getElementById("summary").innerHTML = "";
+  if (cartItems){
     Object.keys(result).map((key, index) => {
       console.log(Object.keys(result)[index], result[Object.keys(result)[index]]);
       let listItem = document.createElement("li");
       let foodName = Object.keys(result)[index];
       let counter = result[Object.keys(result)[index]];
       listItem.innerHTML = foodName + ", " + counter;
-      document.getElementById("ul#summary").append(listItem);
+      document.getElementById("summary").append(listItem);
     });
     }
     message = "Price: " +  totalPrice;

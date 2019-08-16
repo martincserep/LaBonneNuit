@@ -18,6 +18,9 @@
     <c:url value="js/menu.js" var="menuScriptUrl"/>
     <c:url value="js/logout.js" var="logoutScriptUrl"/>
     <c:url value="js/cart.js" var="cartScriptUrl"/>
+    <c:url value="js/employees.js" var="employeesScriptUrl"/>
+    <c:url value="js/orders.js" var="ordersScriptUrl"/>
+
 
     <script src="${authScriptUrl}"></script>
     <script src="${indexScriptUrl}"></script>
@@ -27,6 +30,9 @@
     <script src="${menuScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
     <script src="${cartScriptUrl}"></script>
+    <script src="${employeesScriptUrl}"></script>
+    <script src="${ordersScriptUrl}"></script>
+
 </head>
 <body>
 <!-- Headers -->
@@ -36,20 +42,28 @@
             <a onclick="showHomePage();"><h1>La Bonne Nuit</h1></a>
         </div>
         <div id="customer-header-content" class="content">
-            <div class="dropdown">
-                <a href="javascript:void(0);" onclick="showAllFood();"><button>Menu</button></a>
-                <div class="dropdown-menu">
-                    <a href="javascript:void(0);" onclick="showAppertizers();"><button id="go-to-appertizers-button">Appertizers</button></a>
-                    <a href="javascript:void(0);" onclick="showSoups();"><button id="go-to-soups-button">Soups</button></a></a>
-                    <a href="javascript:void(0);" onclick="showMainDishes();"><button id="go-to-main-dishes-button">Main Dishes</button></a>
-                    <a href="javascript:void(0);" onclick="showDesserts();"><button id="go-to-desserts-button">Desserts</button></a>
+            <div class="customer-header-content">
+                <div class="dropdown">
+                    <a href="javascript:void(0);" onclick="showAllFood();"><button>Menu</button></a>
+                    <div class="dropdown-menu">
+                        <a href="javascript:void(0);" onclick="showAppertizers();"><button id="go-to-appertizers-button">Appertizers</button></a>
+                        <a href="javascript:void(0);" onclick="showSoups();"><button id="go-to-soups-button">Soups</button></a></a>
+                        <a href="javascript:void(0);" onclick="showMainDishes();"><button id="go-to-main-dishes-button">Main Dishes</button></a>
+                        <a href="javascript:void(0);" onclick="showDesserts();"><button id="go-to-desserts-button">Desserts</button></a>
+                    </div>
                 </div>
+                <div class="cart">
+                    <button id="go-to-cart-button"><i class="fas fa-shopping-cart fa-1x" aria-hidden="true"></i>Cart(<span id="cart-count">0</span>)</button>
+                </div>
+                <button id="go-to-profile-button"><span id="user-first-name">Profile</span></button>
+                <div id="manager-header" class="hidden content">
+                    <button id="show-employees">Employees</button>
+                </div>
+                <div id="employee-header" class="hidden content">
+                    <button id="show-orders">Orders</button>
+                </div>
+                <button id="logout-button">Logout</button>
             </div>
-            <div class="cart">
-            <button id="go-to-cart-button"><i class="fas fa-shopping-cart fa-1x" aria-hidden="true"></i>Cart(<span id="cart-count">0</span>)</button>
-            </div>
-            <button id="go-to-profile-button"><span id="user-first-name">Profile</span></button>
-            <button id="logout-button">Logout</button>
         </div>
         <div id="restaurant-header-content" class="hidden content">
         </div>

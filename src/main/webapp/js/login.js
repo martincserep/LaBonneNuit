@@ -10,7 +10,16 @@ function onLoginResponse() {
 
 function showHomePage() {
     clearMessages();
-    showContents(['header-content','customer-home-content', 'customer-header-content']);
+    if(user.role=="MANAGER"){
+        showContents(['header-content','customer-header-content','customer-home-content','manager-header','employee-header']);
+    }
+    else if(user.role=="EMPLOYEE") {
+        showContents(['header-content','customer-header-content','customer-home-content','employee-header']);
+
+    }
+    else {
+        showContents(['header-content','customer-header-content','customer-home-content']);
+    }
 }
 
 function onLoginButtonClicked() {

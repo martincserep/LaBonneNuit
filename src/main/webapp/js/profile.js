@@ -2,7 +2,16 @@ function onCustomerProfileLoad(user) {
     clearMessages();
     const profileToUserFistName = document.getElementById('user-first-name');
     profileToUserFistName.textContent = user.firstname;
-    showContents(['header-content','customer-header-content','customer-home-content']);
+    if(user.role=="MANAGER"){
+        showContents(['header-content','customer-header-content','customer-home-content','manager-header','employee-header']);
+    }
+    else if(user.role=="EMPLOYEE") {
+        showContents(['header-content','customer-header-content','customer-home-content','employee-header']);
+
+    }
+    else {
+        showContents(['header-content','customer-header-content','customer-home-content']);
+    }
 }
 
 function onProfilePageButtonClicked(user) {
@@ -12,8 +21,16 @@ function onProfilePageButtonClicked(user) {
 
 function onPersonalDatasSettingButtonClicked() {
     clearMessages();
-    showContents(['header-content','customer-header-content','customer-profile-content','"my-personal-datas-content']);
-
+    user = getAuthorization();
+    if(user.role=="MANAGER"){
+        showContents(['header-content','customer-header-content','customer-profile-content','manager-header','employee-header','my-personal-datas-content']);
+    }
+    else if(user.role=="EMPLOYEE") {
+        showContents(['header-content','customer-header-content','customer-profile-content','employee-header','my-personal-datas-content']);
+    }
+    else {
+        showContents(['header-content','customer-header-content','customer-profile-content','my-personal-datas-content']);
+    }
     const profileSettingsBoxHeaderTitleEl = document.getElementById('profile-settings-header-title');
 
     profileSettingsBoxHeaderTitleEl.textContent = 'Personal Datas';
@@ -28,7 +45,7 @@ function onShippingAddressSettingButtonClicked() {
 }
 
 function onDeleteRegistrationButtonClicked() {
-    
+
 }
 
 function onRestaurantProfileLoad(user) {

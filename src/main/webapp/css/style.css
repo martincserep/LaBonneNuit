@@ -51,6 +51,13 @@ body{
 }
 #customer-header-content{
 }
+
+.customer-header-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 #restaurant-header-content{
     float: right;
 }
@@ -171,12 +178,50 @@ form div i{
 
 .menu-table tr {
     border: 2px solid #D4AF37;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 20px;
 }
 
 .menu-table {
     display: flex;
     align-items: center;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    width: 100%;
+    flex-direction: column;
+}
+.menu-table table tr td:first-child {
+    flex: 0 1;
+}
+
+.menu-table td.food-details {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.menu-table tr.add-to-cart-tr {
+    display: flex;
+    justify-content: flex-end;
+    border: none;
+}
+
+.menu-table input.add-to-cart-button {
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    margin: 0 10px;
+    border: #f2f2f2 2px solid;
+    background-color: #D4AF37;
+    color: #f2f2f2;
+}
+.menu-table ul.food-details-li {
+    padding-left: 19px;
+}
+
+.menu-table tr td img {
+    margin-left: -20px;
+    margin-bottom: -4px;
 }

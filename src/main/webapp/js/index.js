@@ -155,11 +155,13 @@ function createButtonTd(name, value) {
 
 function createButtonTr(name, value) {
     const buttonEl = document.createElement('input');
+    buttonEl.classList.add("add-to-cart-button");
     buttonEl.setAttribute('type', 'button');
     buttonEl.setAttribute('name', name);
     buttonEl.setAttribute('value', value);
 
     const trEl = document.createElement('tr');
+    trEl.classList.add("add-to-cart-tr");
     trEl.appendChild(buttonEl);
     return trEl;
 }
