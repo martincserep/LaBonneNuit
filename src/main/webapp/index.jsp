@@ -127,9 +127,27 @@
             </div>
             <div class="profile-settings-box-content">
                 <div id="my-personal-datas-content" class="content">
-
+                    Name: <span id="pd-name"></span></br>
+                    E-mail: <span id="pd-email"></span></br>
+                    Phone: <span id="pd-phone"></span></br>
                 </div>
                 <div id="shipping-addresses-content" class="hidden content">
+                    <div class="shipping">
+                        <form class="shipping-form" id="shipping-address-form" onsubmit="return false;">
+                            <div class="city">
+                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <input type="text" name="city" id="city" placeholder="City">
+                            </div>
+                            <div class="address">
+                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <input type="text" name="address" id="address" placeholder="Address">
+                            </div>
+                            <div class="postal-code">
+                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <input type="text" name="postal-code" id="postal-code" placeholder="Postal code">
+                            </div>
+                        </form>
+                    </div>
 
                 </div>
             </div>

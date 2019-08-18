@@ -25,6 +25,15 @@ function onPersonalDatasSettingButtonClicked() {
     const profileSettingsBoxHeaderTitleEl = document.getElementById('profile-settings-header-title');
 
     profileSettingsBoxHeaderTitleEl.textContent = 'Personal Datas';
+
+    const pdname = document.getElementById('pd-name');
+    pdname.textContent = user.firstname + " " + user.lastname;
+
+    const pdemail = document.getElementById('pd-email');
+    pdemail.textContent = user.email;
+
+    const pdphone = document.getElementById('pd-phone');
+    pdphone.textContent = user.phonenumber;
 }
 function onShippingAddressSettingButtonClicked() {
     clearMessages();
