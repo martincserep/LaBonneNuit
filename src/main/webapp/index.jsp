@@ -39,7 +39,7 @@
 <div id="header-content" class="hidden content">
     <div class="header-child">
         <div class="title">
-            <a onclick="showHomePage();"><h1>La Bonne Nuit</h1></a>
+            <a onclick="showAllFood();"><h1>La Bonne Nuit</h1></a>
         </div>
         <div id="customer-header-content" class="content">
             <div class="customer-header-content">

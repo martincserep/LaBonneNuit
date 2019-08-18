@@ -130,6 +130,9 @@ function onLoad() {
     const goToCartButtonEl = document.getElementById('go-to-cart-button');
     goToCartButtonEl.addEventListener('click',onCartClicked);
 
+    const goToEmpleyeesButtonEl = document.getElementById('show-employees');
+    goToEmpleyeesButtonEl.addEventListener('click',onGoToEmplyeesClicked);
+
 
     function getAuthorization() {
         return JSON.parse(localStorage.getItem('user'));
