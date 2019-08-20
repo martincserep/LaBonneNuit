@@ -89,14 +89,14 @@ function getShippingAddress() {
 
     const userId = user.id;
     console.log(userId);
-    const params = new URLSearchParams();
 
+    const params = new URLSearchParams();
     params.append('userId', userId);
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', hasShippingAddress);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/profile?');
+    xhr.open('GET', 'protected/profile');
     xhr.send(params);
 }
 

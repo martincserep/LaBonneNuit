@@ -21,11 +21,13 @@ public class ProfileServlet extends AbstractServlet {
         try (Connection connection = getConnection(request.getServletContext())){
             UserDao userDao = new DatabaseUserDao(connection);
             UserService userService = new SimpleUserService(userDao);
-            System.out.println(request.getParameter("userId"));
-            Integer userId = Integer.valueOf(request.getParameter("userId"));
+            String suid = request.getParameter("userId");
+            System.out.println(suid);
+            Integer userId = 3;
             System.out.println(userId);
-            userService.hasShippingAddress(userId);
+            Boolean userHasShippingAddress = userService.hasShippingAddress(userId);
 
+            sendMessage(response, HttpServletResponse.SC_OK, userHasShippingAddress);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,6 +45,8 @@ public class ProfileServlet extends AbstractServlet {
             String city = request.getParameter("city");
             String address = request.getParameter("address");
             String postalCode = request.getParameter("postalCode");
+
+
 
             userService.hasShippingAddress(userId);
 
@@ -63,7 +67,7 @@ public class ProfileServlet extends AbstractServlet {
 
             boolean hasShippingAddress = userService.hasShippingAddress(userId);
 
-            sendMessage(response, HttpServletResponse.SC_OK, hasShippingAddress);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
