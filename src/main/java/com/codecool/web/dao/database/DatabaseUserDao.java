@@ -66,6 +66,43 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         statement.execute();
     }
 
+    @Override
+    public Boolean hasShippingAddress(Integer userId) throws SQLException {
+        String sql = "SELECT * FROM addresses WHERE userid = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1,userId);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet == null){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    @Override
+    public void setShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
+        String sql = "INSERT INTO addresses (city,address,postalcode,userid) VALUES (?,?,?,?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,city);
+        statement.setString(2,address);
+        statement.setString(3,postalCode);
+        statement.setInt(4,userId);
+        executeInsert(statement);
+    }
+
+    @Override
+    public void updateShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
+        String sql = "UPDATE  addresses SET city = ?, address = ?, postalcode = ? WHERE userid = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,city);
+        statement.setString(2,address);
+        statement.setString(3,postalCode);
+        statement.setInt(4,userId);
+        executeInsert(statement);
+    }
+
     private User fetchUser(ResultSet resultSet) throws SQLException {
         Integer userId = resultSet.getInt("userid");
         String firstname = resultSet.getString("firstname");

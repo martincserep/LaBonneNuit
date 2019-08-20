@@ -37,7 +37,7 @@ CREATE TABLE addresses(
   addressid SMALLSERIAL PRIMARY KEY,
   city VARCHAR(30),
   address VARCHAR(30),
-  postal_code VARCHAR(30),
+  postalcode VARCHAR(30),
   userid INTEGER,
   FOREIGN KEY (userid) REFERENCES users(userid)
 );

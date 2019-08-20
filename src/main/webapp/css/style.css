@@ -160,6 +160,7 @@ form div i{
     background-color: #f2f2f2;
     color: #2f3542;
     font-size: 48px;
+    margin: 10px 0px 10px 0px;
 }
 
 .profile button{
@@ -224,4 +225,12 @@ form div i{
 .menu-table tr td img {
     margin-left: -20px;
     margin-bottom: -4px;
+}
+.shipping-form input {
+    width: 95%;
+    background: none;
+    border: solid 2px #D4AF37;
+    margin: 10px 0px;
+    font-size: 20px;
+    color: #fefefe;
 }

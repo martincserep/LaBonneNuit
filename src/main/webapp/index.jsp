@@ -135,17 +135,18 @@
                     <div class="shipping">
                         <form class="shipping-form" id="shipping-address-form" onsubmit="return false;">
                             <div class="city">
-                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <i class="fas fa-city fa-1x" aria-hidden="true"></i>
                                 <input type="text" name="city" id="city" placeholder="City">
                             </div>
                             <div class="address">
-                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <i class="fas fa-map fa-1x" aria-hidden="true"></i>
                                 <input type="text" name="address" id="address" placeholder="Address">
                             </div>
                             <div class="postal-code">
-                                <i class="fas fa-user fa-1x" aria-hidden="true"></i>
+                                <i class="fas fa-mail-bulk fa-1x" aria-hidden="true"></i>
                                 <input type="text" name="postal-code" id="postal-code" placeholder="Postal code">
                             </div>
+                            <button id="update-shipping-address-button">Send</button>
                         </form>
                     </div>
 
@@ -163,7 +164,7 @@
 <!-- Restaurant sections -->
 <div id="restaurant-home-content" class="hidden content">
 </div>
-<div id="restaurant-reservations-content" class="hidden content">
+<div id="restaurant-orders-content" class="hidden content">
 </div>
 <div id="restaurant-employees-content" class="hidden content">
 </div>

@@ -38,13 +38,13 @@ function onPersonalDatasSettingButtonClicked() {
 function onShippingAddressSettingButtonClicked() {
     clearMessages();
     if(user.role=="MANAGER"){
-        showContents(['header-content','customer-header-content','customer-profile-content','manager-header','employee-header','shipping-address-content']);
+        showContents(['header-content','customer-header-content','customer-profile-content','manager-header','employee-header','shipping-addresses-content']);
     }
     else if(user.role=="EMPLOYEE") {
-        showContents(['header-content','customer-header-content','customer-profile-content','employee-header','shipping-address-content']);
+        showContents(['header-content','customer-header-content','customer-profile-content','employee-header','shipping-addresses-content']);
     }
     else {
-        showContents(['header-content','customer-header-content','customer-profile-content','shipping-address-content']);
+        showContents(['header-content','customer-header-content','customer-profile-content','shipping-addresses-content']);
     }
 
     const profileSettingsBoxHeaderTitleEl = document.getElementById('profile-settings-header-title');
@@ -80,5 +80,66 @@ function deleteUser() {
         xhr.send();
     } else {
         alert("Then why did you click on it?");
+    }
+}
+
+
+function getShippingAddress() {
+    const user = getAuthorization();
+
+    const userId = user.id;
+    console.log(userId);
+    const params = new URLSearchParams();
+
+    params.append('userId', userId);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', hasShippingAddress);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/profile?');
+    xhr.send(params);
+}
+
+
+function hasShippingAddress() {
+        const userHasShippingAddress = JSON.parse(this.responseText);
+        const shippingFormEl = document.forms['shipping-form'];
+
+        const user = getAuthorization();
+
+        const userId = user.id;
+        const cityInputEl = shippingFormEl.querySelector('input[name="city"]');
+        const addressInputEl = shippingFormEl.querySelector('input[name="address"]');
+        const postalCodeInputEl = shippingFormEl.querySelector('input[name="postal-code"]');
+
+        const city = cityInputEl.value;
+        const address = addressInputEl.value;
+        const postalCode = postalCodeInputEl.value;
+
+        const params = new URLSearchParams();
+        params.append('city', city);
+        params.append('address', address);
+        params.append('postalCode', postalCode);
+        params.append('userId', userId);
+
+        const xhr = new XMLHttpRequest();
+
+        if(userHasShippingAddress){
+            xhr.addEventListener('load', onShippingAddressResponse);
+            xhr.addEventListener('error', onNetworkError);
+            xhr.open('PUT', 'protected/profile?');
+            xhr.send(params);
+        } else {
+            xhr.addEventListener('load', onShippingAddressResponse);
+            xhr.addEventListener('error', onNetworkError);
+            xhr.open('POST', 'protected/profile?');
+            xhr.send(params);
+        }
+}
+function onShippingAddressResponse() {
+    if (this.status === OK) {
+        console.log("Shipping address modification is successfull!");
+    } else {
+        onOtherResponse(customerProfileContentDivEl, this);
     }
 }

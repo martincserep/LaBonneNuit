@@ -12,7 +12,7 @@ let customerReservationContentDivEl;
 let customerCartContentDivEl;
 let customerProfileContentDivEl;
 let restaurantHomeContentDivEl;
-let restaurantReservationContentDivEl;
+let restaurantOrdersContentDivEl;
 let restaurantEmployeesContentDivEl;
 let logoutContentDivEl;
 
@@ -104,11 +104,11 @@ function onLoad() {
     registerContentDivEl = document.getElementById('register-content');
     profileContentDivEl = document.getElementById('profile-content');
     customerHomeContentDivEl = document.getElementById('customer-home-content');
-    customerReservationContentDivEl = document.getElementById('customer-reservations-content');
+    customerReservationContentDivEl = document.getElementById('customer-order-content');
     customerProfileContentDivEl = document.getElementById('customer-profile-content');
     customerCartContentDivEl = document.getElementById('customer-cart-content');
     restaurantHomeContentDivEl = document.getElementById('restaurant-home-content');
-    restaurantReservationContentDivEl = document.getElementById('restaurant-reservations-content');
+    restaurantOrdersContentDivEl = document.getElementById('restaurant-orders-content');
     restaurantEmployeesContentDivEl = document.getElementById('restaurant-employees-content');
     logoutContentDivEl = document.getElementById('logout-content');
     const loginButtonEl = document.getElementById('login-button');
@@ -131,6 +131,8 @@ function onLoad() {
     goToCartButtonEl.addEventListener('click',onCartClicked);
     const goToEmpleyeesButtonEl = document.getElementById('show-employees');
     goToEmpleyeesButtonEl.addEventListener('click',onGoToEmplyeesClicked);
+    const updateShippingAddressButtonEl = document.getElementById('update-shipping-address-button');
+    updateShippingAddressButtonEl.addEventListener('click',getShippingAddress);
 
 
     function getAuthorization() {

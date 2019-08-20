@@ -4,8 +4,7 @@ function onGoToEmplyeesClicked(){
     listEmployees();
 }
 function checkRoleToViewEmployees(){
-    user = getAuthorization();
-    if(user.role=="MANAGER"){
+     if(user.role=="MANAGER"){
         showContents(['header-content','customer-header-content','restaurant-employees-content','manager-header','employee-header']);
     }
     else {
@@ -14,5 +13,5 @@ function checkRoleToViewEmployees(){
 }
 
 function listEmployees() {
-    
+
 }
