@@ -68,12 +68,12 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public Boolean hasShippingAddress(Integer userId) throws SQLException {
-        String sql = "SELECT * FROM addresses WHERE userid = ?";
+        String sql = "SELECT city, address, postalcode FROM users WHERE userid = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1,userId);
         ResultSet resultSet = statement.executeQuery();
 
-        if (resultSet == null){
+        if (resultSet.next()){
             return false;
         } else {
             return true;
@@ -83,7 +83,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public void setShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
-        String sql = "INSERT INTO addresses (city,address,postalcode,userid) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO users (city,address,postalcode) VALUES (?,?,?) WHERE userid = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1,city);
         statement.setString(2,address);
@@ -94,7 +94,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public void updateShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
-        String sql = "UPDATE  addresses SET city = ?, address = ?, postalcode = ? WHERE userid = ?";
+        String sql = "UPDATE  users SET city = ?, address = ?, postalcode = ? WHERE userid = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1,city);
         statement.setString(2,address);

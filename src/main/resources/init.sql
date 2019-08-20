@@ -2,53 +2,44 @@ DROP TABLE IF EXISTS cart CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS foods CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
-DROP TABLE IF EXISTS addresses CASCADE;
 
 CREATE TABLE users(
-    userid SMALLSERIAL PRIMARY KEY,
-    firstname VARCHAR(30),
-    lastname VARCHAR(30),
-    phonenumber VARCHAR(30),
-    email VARCHAR(30),
-    username VARCHAR(30),
-    password VARCHAR(30),
-    userrole VARCHAR(20)
+                      userid SMALLSERIAL PRIMARY KEY,
+                      firstname VARCHAR(30),
+                      lastname VARCHAR(30),
+                      phonenumber VARCHAR(30),
+                      email VARCHAR(30),
+                      username VARCHAR(30),
+                      password VARCHAR(30),
+                      userrole VARCHAR(20),
+                      city VARCHAR(30),
+                      address VARCHAR(30),
+                      postalcode VARCHAR(30)
 );
 
 CREATE TABLE foods(
-  foodid SMALLSERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  price INT NOT NULL,
-  image varchar(400),
-  category varchar(30)
+                      foodid SMALLSERIAL PRIMARY KEY,
+                      name VARCHAR(100) NOT NULL,
+                      price INT NOT NULL,
+                      image varchar(400),
+                      category varchar(30)
 );
 
 CREATE TABLE cart(
-    cartid SMALLSERIAL PRIMARY KEY,
-    userid SMALLINT,
-    foodid SMALLINT,
-    quantity SMALLINT DEFAULT 1,
-    price smallint,
-    FOREIGN KEY (userid) REFERENCES users(userid),
-    FOREIGN KEY (foodid) REFERENCES foods(foodid)
-);
-
-CREATE TABLE addresses(
-  addressid SMALLSERIAL PRIMARY KEY,
-  city VARCHAR(30),
-  address VARCHAR(30),
-  postalcode VARCHAR(30),
-  userid INTEGER,
-  FOREIGN KEY (userid) REFERENCES users(userid)
+                     userid SMALLINT,
+                     foodid SMALLINT,
+                     quantity SMALLINT DEFAULT 1,
+                     price smallint,
+                     FOREIGN KEY (userid) REFERENCES users(userid),
+                     FOREIGN KEY (foodid) REFERENCES foods(foodid)
 );
 
 CREATE TABLE orders(
-   orderid SMALLSERIAL PRIMARY KEY,
-   cartid SMALLINT NOT NULL,
-   total FLOAT NOT NULL,
-   addressid SMALLINT NOT NULL,
-   orderdate TIMESTAMP,
-   FOREIGN KEY (cartid) REFERENCES cart(cartid)
+                       orderid SMALLSERIAL PRIMARY KEY,
+                       userid SMALLINT NOT NULL,
+                       total FLOAT NOT NULL,
+                       addressid SMALLINT NOT NULL,
+                       orderdate TIMESTAMP
 );
 
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password,userrole) VALUES

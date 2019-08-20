@@ -48,7 +48,7 @@ public class ProfileServlet extends AbstractServlet {
 
 
 
-            userService.hasShippingAddress(userId);
+            userService.setShippingAddress(userId,city,address,postalCode);
 
 
         } catch (SQLException e) {
@@ -64,8 +64,11 @@ public class ProfileServlet extends AbstractServlet {
             UserService userService = new SimpleUserService(userDao);
 
             Integer userId = Integer.valueOf(request.getParameter("userId"));
+            String city = request.getParameter("city");
+            String address = request.getParameter("address");
+            String postalCode = request.getParameter("postalCode");
 
-            boolean hasShippingAddress = userService.hasShippingAddress(userId);
+            userService.updateShippingAddress(userId,city,address,postalCode);
 
 
 

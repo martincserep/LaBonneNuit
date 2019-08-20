@@ -103,7 +103,7 @@ function getShippingAddress() {
 
 function hasShippingAddress() {
         const userHasShippingAddress = JSON.parse(this.responseText);
-        const shippingFormEl = document.forms['shipping-form'];
+        const shippingFormEl = document.forms['shipping-address-form'];
 
         const user = getAuthorization();
 
@@ -127,12 +127,12 @@ function hasShippingAddress() {
         if(userHasShippingAddress){
             xhr.addEventListener('load', onShippingAddressResponse);
             xhr.addEventListener('error', onNetworkError);
-            xhr.open('PUT', 'protected/profile?');
+            xhr.open('PUT', 'protected/profile');
             xhr.send(params);
         } else {
             xhr.addEventListener('load', onShippingAddressResponse);
             xhr.addEventListener('error', onNetworkError);
-            xhr.open('POST', 'protected/profile?');
+            xhr.open('POST', 'protected/profile');
             xhr.send(params);
         }
 }

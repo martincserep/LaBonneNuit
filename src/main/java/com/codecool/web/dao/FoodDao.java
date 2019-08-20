@@ -11,4 +11,5 @@ public interface FoodDao {
     Food findById(Integer id) throws SQLException;
     List<Food> findAllFood() throws SQLException;
 
+
 }
