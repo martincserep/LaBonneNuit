@@ -68,6 +68,10 @@ public class ProfileServlet extends AbstractServlet {
             String address = request.getParameter("address");
             String postalCode = request.getParameter("postalCode");
 
+            System.out.println(city);
+            System.out.println(address);
+            System.out.println(postalCode);
+
             userService.updateShippingAddress(userId,city,address,postalCode);
 
 

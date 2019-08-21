@@ -85,61 +85,39 @@ function deleteUser() {
 
 
 function getShippingAddress() {
+    const shippingFormEl = document.forms['shipping-address-form'];
+
     const user = getAuthorization();
 
     const userId = user.id;
-    console.log(userId);
+    const cityInputEl = shippingFormEl.querySelector('input[name="city"]');
+    const addressInputEl = shippingFormEl.querySelector('input[name="address"]');
+    const postalCodeInputEl = shippingFormEl.querySelector('input[name="postal-code"]');
+
+    const city = cityInputEl.value;
+    const address = addressInputEl.value;
+    const postalCode = postalCodeInputEl.value;
 
     const params = new URLSearchParams();
+    params.append('city', city);
+    params.append('address', address);
+    params.append('postalCode', postalCode);
     params.append('userId', userId);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', hasShippingAddress);
+
+    xhr.addEventListener('load', onShippingAddressResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', 'protected/profile');
+    xhr.open('PUT', 'protected/profile?');
     xhr.send(params);
 }
 
 
 function hasShippingAddress() {
         const userHasShippingAddress = JSON.parse(this.responseText);
-        const shippingFormEl = document.forms['shipping-address-form'];
 
-        const user = getAuthorization();
-
-        const userId = user.id;
-        const cityInputEl = shippingFormEl.querySelector('input[name="city"]');
-        const addressInputEl = shippingFormEl.querySelector('input[name="address"]');
-        const postalCodeInputEl = shippingFormEl.querySelector('input[name="postal-code"]');
-
-        const city = cityInputEl.value;
-        const address = addressInputEl.value;
-        const postalCode = postalCodeInputEl.value;
-
-        const params = new URLSearchParams();
-        params.append('city', city);
-        params.append('address', address);
-        params.append('postalCode', postalCode);
-        params.append('userId', userId);
-
-        const xhr = new XMLHttpRequest();
-
-        if(userHasShippingAddress){
-            xhr.addEventListener('load', onShippingAddressResponse);
-            xhr.addEventListener('error', onNetworkError);
-            xhr.open('PUT', 'protected/profile');
-            xhr.send(params);
-        } else {
-            xhr.addEventListener('load', onShippingAddressResponse);
-            xhr.addEventListener('error', onNetworkError);
-            xhr.open('POST', 'protected/profile');
-            xhr.send(params);
-        }
 }
 function onShippingAddressResponse() {
-    if (this.status === OK) {
         console.log("Shipping address modification is successfull!");
-    } else {
-        onOtherResponse(customerProfileContentDivEl, this);
-    }
+
 }
