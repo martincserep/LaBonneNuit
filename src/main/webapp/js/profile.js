@@ -105,10 +105,9 @@ function getShippingAddress() {
     params.append('userId', userId);
 
     const xhr = new XMLHttpRequest();
-
     xhr.addEventListener('load', onShippingAddressResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('PUT', 'protected/profile?');
+    xhr.open('POST', 'protected/profile?');
     xhr.send(params);
 }
 

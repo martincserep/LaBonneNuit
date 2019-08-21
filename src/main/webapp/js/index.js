@@ -129,8 +129,8 @@ function onLoad() {
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
     const goToCartButtonEl = document.getElementById('go-to-cart-button');
     goToCartButtonEl.addEventListener('click',onCartClicked);
-    const goToEmpleyeesButtonEl = document.getElementById('show-employees');
-    goToEmpleyeesButtonEl.addEventListener('click',onGoToEmplyeesClicked);
+    const goToUsersButtonEl = document.getElementById('show-employees');
+    goToUsersButtonEl.addEventListener('click',onGoToUsersClicked);
     const updateShippingAddressButtonEl = document.getElementById('update-shipping-address-button');
     updateShippingAddressButtonEl.addEventListener('click',getShippingAddress);
 

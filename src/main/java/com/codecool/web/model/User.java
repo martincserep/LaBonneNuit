@@ -12,9 +12,13 @@ public final class User extends AbstractModel {
     private String email;
     private String username;
     private String password;
+    private String city;
+    private String address;
+    private String postalCode;
+
     private Role role;
 
-    public User(Integer id, String firstname, String lastname, String phonenumber, String email, String username, String password, Role role) {
+    public User(Integer id, String firstname, String lastname, String phonenumber, String email, String username, String password, Role role, String address, String postalCode, String city) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -23,6 +27,9 @@ public final class User extends AbstractModel {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.city = city;
     }
 
     public String getFirstname() {
@@ -40,6 +47,7 @@ public final class User extends AbstractModel {
     public String getEmail() {
         return email;
     }
+
     public String getUsername() {
         return username;
     }
@@ -47,6 +55,19 @@ public final class User extends AbstractModel {
     public String getPassword() {
         return password;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public Role getRole() {
         return role;
     }

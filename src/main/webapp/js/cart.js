@@ -32,9 +32,7 @@ function showCart(cartDto){
   Object.keys(result).map(function(key, index) {
     console.log(Object.keys(result)[index], result[Object.keys(result)[index]])
   });
-  //cartTableEl = document.getElementById("cart-table");
-  //cartTableBodyEl = cartTableEl.querySelector("tbody");
-  const cartItems = cartDto.cartItems;
+    const cartItems = cartDto.cartItems;
   const totalPrice = cartDto.price;
 
   //removeAllChildren(cartTableBodyEl);

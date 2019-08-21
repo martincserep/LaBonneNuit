@@ -167,6 +167,9 @@
 <div id="restaurant-orders-content" class="hidden content">
 </div>
 <div id="restaurant-employees-content" class="hidden content">
+    <ul id="users">
+
+    </ul>
 </div>
 </body>
 </html>

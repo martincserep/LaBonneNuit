@@ -32,7 +32,7 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         if (username == null || "".equals(username)) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
-        String sql = "SELECT userid, firstname, lastname, phonenumber, email, username, password, userrole FROM users WHERE username = ?";
+        String sql = "SELECT userid, firstname, lastname, phonenumber, email, username, password, userrole, city, address, postalcode FROM users WHERE username = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -66,20 +66,6 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         statement.execute();
     }
 
-    @Override
-    public Boolean hasShippingAddress(Integer userId) throws SQLException {
-        String sql = "SELECT city, address, postalcode FROM users WHERE userid = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1,userId);
-        ResultSet resultSet = statement.executeQuery();
-
-        if (resultSet.next()){
-            return false;
-        } else {
-            return true;
-        }
-
-    }
 
     @Override
     public void setShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
@@ -94,12 +80,33 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public void updateShippingAddress(Integer userId, String city, String address, String postalCode) throws SQLException {
-        String sql = "UPDATE  users SET city = ?, address = ?, postalcode = ? WHERE userid = ?";
+        String sql = "UPDATE users SET city = ?, address = ?, postalcode = ? WHERE userid = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1,city);
         statement.setString(2,address);
         statement.setString(3,postalCode);
         statement.setInt(4,userId);
+        executeInsert(statement);
+    }
+
+    @Override
+    public List<User> getUsers() throws SQLException {
+        String sql = "select * from users";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery();
+        List<User> userList = new ArrayList<>();
+        while (resultSet.next()){
+            userList.add(fetchUser(resultSet));
+        }
+        return userList;
+    }
+
+    @Override
+    public void updateRole(Integer userId, String role) throws SQLException {
+        String sql = "UPDATE users SET userrole = ? WHERE userid = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1,role);
+        statement.setInt(2,userId);
         executeInsert(statement);
     }
 
@@ -111,8 +118,20 @@ public final class DatabaseUserDao extends AbstractDao implements UserDao {
         String email = resultSet.getString("email");
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");
+        String city = "Undifined";
+        String address = "Undifined";
+        String postalCode = "Undifined";
+        if(resultSet.getString("city")!=null){
+            city = resultSet.getString("city");
+        }
+        if(resultSet.getString("address")!=null){
+            address = resultSet.getString("address");
+        }
+        if(resultSet.getString("postalcode")!=null){
+            postalCode = resultSet.getString("postalcode");
+        }
         Role role = DaoParser.roleParser(resultSet.getString("userrole"));
         System.out.println(role);
-        return new User(userId, firstname, lastname, phonenumber, email, username, password, role);
+        return new User(userId, firstname, lastname, phonenumber, email, username, password, role, address, postalCode, city);
     }
 }
