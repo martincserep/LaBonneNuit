@@ -38,14 +38,15 @@ function createButton(userId) {
     var promoteButton = document.createElement("input");
     promoteButton.type = "button";
     promoteButton.value = "Change Role";
-    promoteButton.onclick = changeUserRole(userId);
+    //promoteButton.onclick = onclick = function () { changeUserRole(userId) };
     return promoteButton;
 
 }
 
 function changeUserRole(userId) {
-    var role = confirm("");
+    var role = confirm("Do you want to promote him/her?");
     const params = new URLSearchParams();
+    params.append('userId', userId);
     params.append('role', 'false');
     if (role == true){
         params.append('role', 'true');
@@ -53,7 +54,7 @@ function changeUserRole(userId) {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', userRoleChangeResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('PUT', 'protected/profile?');
+    xhr.open('PUT', 'protected/profile?' + params.toString());
     xhr.send(params);
 }
 
@@ -62,6 +63,7 @@ function userRoleChangeResponse() {
         clearMessages();
         var currUser = JSON.parse(this.responseText);
         alert("is now " + currUser[1]);
+        localStorage.setItem('user', JSON.stringify(user));
     } else{
         onOtherResponse(customerCartContentDivEl,this);
     }
