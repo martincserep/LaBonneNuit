@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS cart CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS foods CASCADE;
+DROP TABLE IF EXISTS ordersdetail CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 
 CREATE TABLE users(
@@ -38,16 +39,23 @@ CREATE TABLE orders(
                        orderid SMALLSERIAL PRIMARY KEY,
                        userid SMALLINT NOT NULL,
                        total FLOAT NOT NULL,
+                       foodid SMALLINT NOT NULL,
+                       quantity SMALLINT NOT NULL DEFAULT 1,
+                       unitcost FLOAT NOT NULL,
                        addressid SMALLINT NOT NULL,
-                       orderdate TIMESTAMP
+                       orderdate TIMESTAMP,
+                       isfinished BOOLEAN
 );
 
-CREATE TABLE ordersdetail (
+/*CREATE TABLE ordersdetail (
                        id SMALLSERIAL PRIMARY KEY,
-                       productid SMALLINT NOT NULL,
+                       orderid SMALLINT NOT NULL,
+                       foodid SMALLINT NOT NULL,
                        quantity SMALLINT NOT NULL DEFAULT 1,
-                       unitcost FLOAT NOT NULL
-);
+                       unitcost FLOAT NOT NULL,
+                       FOREIGN KEY (orderid) REFERENCES orders(orderid),
+                       FOREIGN KEY (foodid) REFERENCES foods(foodid)
+);*/
 
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password,userrole) VALUES
 ('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela','EMPLOYEE'),

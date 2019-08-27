@@ -28,28 +28,33 @@ function listUsers(users) {
         let userObject = users[i];
         console.log(userObject);
         let listItem = document.createElement("li");
-        const user = userObject.firstname + " " + userObject.lastname + " " +userObject.phonenumber + " " +userObject.email + " " +userObject.city + " " +userObject.postalCode + " " +userObject.address + " " +userObject.role + " "+ createButton(userObject.id);
+        const user = userObject.firstname + " " + userObject.lastname + " " +userObject.phonenumber + " " +userObject.email + " " +userObject.city + " " +userObject.postalCode + " " +userObject.address + " " +userObject.role;
         listItem.innerHTML = user;
+        const button = createButton(userObject.id);
+        const breakLine = '</br>';
         document.getElementById("users").append(listItem);
+        document.getElementById("users").append(button);
+        document.getElementById("users").append(breakLine);
     }
 }
 
 function createButton(userId) {
-    var promoteButton = document.createElement("input");
+    const promoteButton = document.createElement("input");
     promoteButton.type = "button";
     promoteButton.value = "Change Role";
-    //promoteButton.onclick = onclick = function () { changeUserRole(userId) };
+    promoteButton.onclick = function () { changeUserRole(userId) };
     return promoteButton;
 
 }
 
 function changeUserRole(userId) {
-    var role = confirm("Do you want to promote him/her?");
+    const role = confirm("Do you want to promote him/her?");
     const params = new URLSearchParams();
     params.append('userId', userId);
-    params.append('role', 'false');
     if (role == true){
         params.append('role', 'true');
+    } else {
+        params.append('role', 'false');
     }
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', userRoleChangeResponse);
@@ -63,7 +68,6 @@ function userRoleChangeResponse() {
         clearMessages();
         var currUser = JSON.parse(this.responseText);
         alert("is now " + currUser[1]);
-        localStorage.setItem('user', JSON.stringify(user));
     } else{
         onOtherResponse(customerCartContentDivEl,this);
     }
