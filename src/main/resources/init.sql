@@ -42,6 +42,13 @@ CREATE TABLE orders(
                        orderdate TIMESTAMP
 );
 
+CREATE TABLE ordersdetail (
+                       id SMALLSERIAL PRIMARY KEY,
+                       productid SMALLINT NOT NULL,
+                       quantity SMALLINT NOT NULL DEFAULT 1,
+                       unitcost FLOAT NOT NULL
+);
+
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password,userrole) VALUES
 ('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela','EMPLOYEE'),
 ('Sándor','Nagy','06707654321','sanyi@sanyi.hu', 'sanyi','sanyi','CUSTOMER'),
