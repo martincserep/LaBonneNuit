@@ -10,6 +10,7 @@ public interface FoodDao {
     List<Food> findByCategory(String category) throws SQLException;
     Food findById(Integer id) throws SQLException;
     List<Food> findAllFood() throws SQLException;
+    void insertFoodToMenu(String name, Integer price, String imageURL, String Category) throws SQLException;
 
 
 }

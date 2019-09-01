@@ -133,3 +133,44 @@ function onOrderFoodResponse() {
         onOtherResponse();
     }
 }
+
+function sendFoodToDatabase() {
+    const shippingFormEl = document.forms['add-food-to-menu-form'];
+
+    const nameInputEl = shippingFormEl.querySelector('input[name="foodname"]');
+    const imageInputEl = shippingFormEl.querySelector('input[name="foodimage"]');
+    const priceInputEl = shippingFormEl.querySelector('input[name="foodprice"]');
+    const categoryInputEl = document.getElementById('foodcategory');
+
+    const name = nameInputEl.value;
+    const image = imageInputEl.value;
+    const price = priceInputEl.value;
+    const category = categoryInputEl.options[categoryInputEl.selectedIndex].text;
+
+
+    const params = new URLSearchParams();
+    params.append('name', name);
+    params.append('image', image);
+    params.append('price', price);
+    params.append('category', category);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onAddedFoodToMenu);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'protected/allfoods?' + params.toString());
+    xhr.send();
+}
+
+function onAddedFoodToMenu() {
+    if (this.status === OK){
+        clearMessages();
+        alert("Done");
+    } else{
+        onOtherResponse(customerHomeContentDivEl,this)
+    }
+}
+
+function addFoodToMenu() {
+    showContents(['header-content','customer-header-content','manager-header','employee-header','restaurant-add-food-content']);
+
+}

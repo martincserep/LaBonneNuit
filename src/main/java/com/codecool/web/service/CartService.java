@@ -30,6 +30,12 @@ public interface CartService {
 
     boolean isFoodInCart(int userId, Food food) throws SQLException;
 
-    void createCart(int userId) throws SQLException;
+    Integer getCartPrice(List<Cart> orderList);
+
+    void createCart(int userId, String orderedFood, int total) throws SQLException;
+
+    String getOrderedFoodFromList(List<Cart> orderList);
+
+    void deleteAllFoodFromCart(int userId) throws SQLException;
 
 }

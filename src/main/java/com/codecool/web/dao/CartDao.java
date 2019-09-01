@@ -29,7 +29,8 @@ public interface CartDao {
 
     boolean checkCarts(int userId) throws SQLException;
 
-    void createCart(int userId) throws SQLException;
+    void createCart(int userId, String orderedFood, int total) throws SQLException;
 
 
+    void deleteAllFoodFromCart(int userId) throws SQLException;
 }

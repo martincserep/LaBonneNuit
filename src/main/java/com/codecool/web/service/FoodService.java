@@ -10,5 +10,6 @@ public interface FoodService {
     Food findById(Integer id) throws SQLException;
     List<Food> findByCategory(String category) throws SQLException;
     List<Food> findAllFoods() throws SQLException;
+    void inserFoodToMenu(String name, Integer price, String imageURL, String Category) throws SQLException;
 
 }

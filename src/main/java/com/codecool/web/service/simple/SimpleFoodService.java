@@ -30,4 +30,9 @@ public class SimpleFoodService implements FoodService {
         return foodDao.findAllFood();
     }
 
+    @Override
+    public void inserFoodToMenu(String name, Integer price, String imageURL, String Category) throws SQLException {
+        foodDao.insertFoodToMenu(name, price, imageURL, Category);
+    }
+
 }

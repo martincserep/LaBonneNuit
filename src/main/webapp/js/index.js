@@ -137,6 +137,10 @@ function onLoad() {
     goToOrdersButtonEl.addEventListener('click',onGoToOrdersClicked);
     const sendOrdersButtonEl = document.getElementById('order-button');
     sendOrdersButtonEl.addEventListener('click',sendOrders);
+    const addFoodToMenuButtonEl = document.getElementById('add-food-to-menu');
+    addFoodToMenuButtonEl.addEventListener('click',addFoodToMenu);
+    const insertFoodToMenuButtonEl = document.getElementById('insert-food-to-menu-button');
+    insertFoodToMenuButtonEl.addEventListener('click',sendFoodToDatabase);
 
 
     function getAuthorization() {

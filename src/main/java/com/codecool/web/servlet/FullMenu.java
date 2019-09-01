@@ -29,4 +29,19 @@ public class FullMenu extends AbstractServlet {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        try (Connection connection = getConnection(request.getServletContext())) {
+            FoodDao foodDao = new DatabaseFoodDao(connection);
+            FoodService foodService = new SimpleFoodService(foodDao);
+            String name = request.getParameter("name");
+            Integer price = Integer.valueOf(request.getParameter("price"));
+            String imageURL = request.getParameter("image");
+            String category = request.getParameter("category");
+            foodService.inserFoodToMenu(name,price,imageURL,category);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

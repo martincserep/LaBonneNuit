@@ -58,6 +58,8 @@
                 <button id="go-to-profile-button"><span id="user-first-name">Profile</span></button>
                 <div id="manager-header" class="hidden content">
                     <button id="show-employees">Employees</button>
+                    <button id="add-food-to-menu">Add food</button>
+
                 </div>
                 <div id="employee-header" class="hidden content">
                     <button id="show-orders">Orders</button>
@@ -194,6 +196,32 @@
     <ul id="users">
 
     </ul>
+</div>
+<div id="restaurant-add-food-content" class="hidden content">
+    <form class="shipping-form" id="add-food-to-menu-form" onsubmit="return false;">
+        <div class="city">
+            <i class="fas fa-city fa-1x" aria-hidden="true"></i>
+            <input type="text" name="foodname" id="foodname" placeholder="Name">
+        </div>
+        <div class="address">
+            <i class="fas fa-map fa-1x" aria-hidden="true"></i>
+            <input type="number" name="foodprice" id="foodprice" min="1" max="100000">
+        </div>
+        <div class="postal-code">
+            <i class="fas fa-mail-bulk fa-1x" aria-hidden="true"></i>
+            <input type="text" name="foodimage" id="foodimage" placeholder="Food Image URL">
+        </div>
+        <div class="postal-code">
+            <i class="fas fa-mail-bulk fa-1x" aria-hidden="true"></i>
+            <select name="foodcategory" id="foodcategory">
+                <option value="appetizers">appetizers</option>
+                <option value="soups">soups</option>
+                <option value="main-dishes">main-dishes</option>
+                <option value="desserts">desserts</option>
+            </select>
+        </div>
+        <button id="insert-food-to-menu-button">Add</button>
+    </form>
 </div>
 </body>
 </html>

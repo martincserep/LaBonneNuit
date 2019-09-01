@@ -56,6 +56,18 @@ public final class DatabaseFoodDao extends AbstractDao implements FoodDao {
         return foods;
     }
 
+    @Override
+    public void insertFoodToMenu(String name, Integer price, String imageURL, String category) throws SQLException {
+        String sql = "INSERT INTO foods(name,price,image,category) VALUES(?,?,?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1,name);
+            statement.setInt(2,price);
+            statement.setString(3,imageURL);
+            statement.setString(4,category);
+            statement.executeUpdate();
+        }
+    }
+
     private Food fetchFood(ResultSet resultSet) throws SQLException{
 
         int id = resultSet.getInt("foodid");

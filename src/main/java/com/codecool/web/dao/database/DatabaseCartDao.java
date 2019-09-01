@@ -98,7 +98,7 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
     @Override
     public List<Order> getOrders() throws SQLException {
-        String sql = "select concat(users.firstname, ' ', users.lastname) as name ,concat(users.postalcode, ' ', users.city, ' ', users.address) as address, orderedfood, total, isfinished, orderid from carts inner join users on carts.userid = users.userid";
+        String sql = "select cartid, concat(users.firstname, ' ', users.lastname) as name ,concat(users.postalcode, ' ', users.city, ' ', users.address) as address, carts.orderedfoods as orderedfoods, carts.price as price, isfinished from carts inner join users on carts.userid = users.userid where isfinished = false";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.execute();
@@ -113,7 +113,7 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
     @Override
     public void changeOrderStatus(int orderId) throws SQLException {
-        String sql = " UPDATE orders SET isfinished = true WHERE orderId = ?";
+        String sql = " UPDATE carts SET isfinished = true WHERE cartid = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, orderId);
             statement.executeUpdate();
@@ -137,13 +137,25 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
     }
 
     @Override
-    public void createCart(int userId) throws SQLException {
-        String sql = "INSERT INTO carts(userid) VALUES(?);";
+    public void createCart(int userId, String orderedFood, int total) throws SQLException {
+        String sql = "INSERT INTO carts(userid,orderedfoods,price) VALUES(?,?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1,userId);
+            statement.setString(2,orderedFood);
+            statement.setInt(3,total);
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public void deleteAllFoodFromCart(int userId) throws SQLException {
+        String sql = "DELETE FROM cartitems WHERE userid = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1,userId);
             statement.executeUpdate();
         }
     }
+
 
     private Cart fetchCartItem(ResultSet resultSet) throws SQLException {
         Integer foodId = resultSet.getInt("foodid");
@@ -154,12 +166,13 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
     return new Cart(foodId, name,quantity,price);
     }
 
+
     private Order fetchOrders(ResultSet resultSet) throws SQLException {
-        Integer orderid = resultSet.getInt("orderid");
+        Integer orderid = resultSet.getInt("cartid");
         String name = resultSet.getString("name");
         String address = resultSet.getString("address");
-        String orderedFood = resultSet.getString("orderedfood");
-        Integer price = resultSet.getInt("total");
+        String orderedFood = resultSet.getString("orderedfoods");
+        Integer price = resultSet.getInt("price");
         boolean isfinished = resultSet.getBoolean("isfinished");
         if (isfinished){
             return new Order(orderid,name,address,orderedFood,price, "Finished");

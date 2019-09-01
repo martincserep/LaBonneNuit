@@ -68,7 +68,12 @@ public class OrderServlet extends AbstractServlet{
                 if(cartService.checkCarts(userId)){
                     System.out.println("Már van ilyen tesó");
                 } else {
-                    cartService.createCart(userId);
+                    List<Cart> cartItems = cartService.findAllByUserId(userId);
+                    int totalPrice = cartService.getCartPrice(cartItems);
+                    System.out.println(totalPrice);
+                    String orderedFood = cartService.getOrderedFoodFromList(cartItems);
+                    cartService.createCart(userId,orderedFood,totalPrice);
+                    cartService.deleteAllFoodFromCart(userId);
                 }
 
 

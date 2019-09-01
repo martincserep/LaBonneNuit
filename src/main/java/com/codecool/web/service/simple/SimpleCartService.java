@@ -69,9 +69,37 @@ public class SimpleCartService implements CartService {
         return cartDao.isFoodInCart(userId,food);
     }
 
+
     @Override
-    public void createCart(int userId) throws SQLException {
-        cartDao.createCart(userId);
+    public String getOrderedFoodFromList(List<Cart> orderList) {
+        String orderString = "";
+        for(int i=0;i<orderList.size();i++){
+                Cart cart = orderList.get(i);
+            System.out.println(cart.getFoodName() + " " + cart.getQuantity() + " " + cart.getPrice());
+            String newFood = cart.getFoodName() + " " + cart.getQuantity() + " " + cart.getPrice();
+            orderString = orderString + " " + newFood;
+        }
+        return orderString;
+    }
+
+    @Override
+    public void deleteAllFoodFromCart(int userId) throws SQLException {
+        cartDao.deleteAllFoodFromCart(userId);
+    }
+
+    @Override
+    public Integer getCartPrice(List<Cart> orderList) {
+        int total = 0;
+        for(int i=0;i<orderList.size();i++){
+            Cart cart = orderList.get(i);
+            total = total + cart.getPrice();
+        }
+        return total;
+    }
+
+    @Override
+    public void createCart(int userId, String orderedFood, int total) throws SQLException {
+        cartDao.createCart(userId,orderedFood,total);
     }
 
 }
