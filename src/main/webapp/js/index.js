@@ -133,6 +133,10 @@ function onLoad() {
     goToUsersButtonEl.addEventListener('click',onGoToUsersClicked);
     const updateShippingAddressButtonEl = document.getElementById('update-shipping-address-button');
     updateShippingAddressButtonEl.addEventListener('click',getShippingAddress);
+    const goToOrdersButtonEl = document.getElementById('show-orders');
+    goToOrdersButtonEl.addEventListener('click',onGoToOrdersClicked);
+    const sendOrdersButtonEl = document.getElementById('order-button');
+    sendOrdersButtonEl.addEventListener('click',sendOrders);
 
 
     function getAuthorization() {

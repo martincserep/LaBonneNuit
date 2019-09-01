@@ -3,6 +3,7 @@ package com.codecool.web.dao.database;
 import com.codecool.web.dao.CartDao;
 import com.codecool.web.model.Cart;
 import com.codecool.web.model.Food;
+import com.codecool.web.model.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
     @Override
     public List<Cart> findAllByUserId(int userId) throws SQLException {
-        String sql = "SELECT foods.foodid, foods.name,cart.quantity,cart.price FROM cart JOIN foods ON cart.foodid=foods.foodid Where cart.userid = ?;";
+        String sql = "SELECT foods.foodid, foods.name,cartitems.quantity AS quantity,cartitems.price AS price FROM cartitems JOIN foods ON cartitems.foodid=foods.foodid Where cartitems.userid = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1,userId);
@@ -33,8 +34,20 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
 
     @Override
+    public void increaseQuantity(int userId, int foodId) throws SQLException {
+        String sql = "UPDATE cartitems SET quantity = quantity + 1 FROM cartitems Where userid = ? AND foodid = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1,userId);
+            statement.setInt(2,foodId);
+            executeInsert(statement);
+        }
+    }
+
+
+    @Override
     public Cart findFoodInCart(int userId, int foodId) throws SQLException {
-        String sql = "SELECT foods.foodid, foods.name,cart.quantity,cart.price FROM cart JOIN foods ON cart.foodid=foods.foodid Where cart.userid = ? AND cart.foodid = ?;";
+        String sql = "SELECT foods.foodid, foods.name,cartitems.quantity,cartitems.price FROM cartitems JOIN foods ON cartitems.foodid=foods.foodid Where cartitems.userid = ? AND cartitems.foodid = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1,userId);
             statement.setInt(2,foodId);
@@ -47,7 +60,7 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
     @Override
     public boolean isFoodInCart(int userId, Food food) throws SQLException {
-        String sql = "SELECT * FROM cart WHERE userid = ? AND foodid = ? ";
+        String sql = "SELECT * FROM cartitems WHERE userid = ? AND foodid = ? ";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, userId);
             statement.setInt(2, food.getFoodId());
@@ -59,7 +72,7 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
 
     @Override
     public void addFood(int userId, Food food) throws SQLException {
-        String sql = "INSERT INTO cart(userid, foodid, price) VALUES(?,?,?);";
+        String sql = "INSERT INTO cartitems(userid, foodid, price) VALUES(?,?,?);";
             try (PreparedStatement statement = connection.prepareStatement(sql)){
                 statement.setInt(1,userId);
                 statement.setInt(2,food.getFoodId());
@@ -69,26 +82,94 @@ public class DatabaseCartDao extends AbstractDao implements CartDao {
     }
 
     @Override
-    public void incrementFoodQuantity(int userId, Food food) throws SQLException {
-        String sql = "UPDATE cart SET price = price + ?, quantity = quantity + 1 " +
-            "WHERE userid = ? AND foodid = ?;";
+    public void incrementFoodQuantity(int userId, int foodId) throws SQLException {
+        String sql = "UPDATE cartitems SET quantity = quantity + 1,price = price * (quantity + 1) WHERE userid = ? AND foodid = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, food.getPrice());
-            statement.setInt(2, userId);
-            statement.setInt(3, food.getFoodId());
+            statement.setInt(1, userId);
+            statement.setInt(2, foodId);
+            executeInsert(statement);
+        }
+    }
+
+    @Override
+    public void sendOrders(int userId, String order, int total) throws SQLException {
+
+    }
+
+    @Override
+    public List<Order> getOrders() throws SQLException {
+        String sql = "select concat(users.firstname, ' ', users.lastname) as name ,concat(users.postalcode, ' ', users.city, ' ', users.address) as address, orderedfood, total, isfinished, orderid from carts inner join users on carts.userid = users.userid";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            List<Order> orders = new ArrayList<>();
+            while (resultSet.next()){
+                orders.add(fetchOrders(resultSet));
+            }
+            return orders;
+        }
+    }
+
+    @Override
+    public void changeOrderStatus(int orderId) throws SQLException {
+        String sql = " UPDATE orders SET isfinished = true WHERE orderId = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, orderId);
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public boolean checkCarts(int userId) throws SQLException {
+        String sql = "SELECT * FROM carts WHERE userid=? and isfinished=false";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            if (resultSet.next()){
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+    }
+
+    @Override
+    public void createCart(int userId) throws SQLException {
+        String sql = "INSERT INTO carts(userid) VALUES(?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1,userId);
             statement.executeUpdate();
         }
     }
 
     private Cart fetchCartItem(ResultSet resultSet) throws SQLException {
-    Integer foodId = resultSet.getInt("foodid");
-    String name = resultSet.getString("name");
-    Integer quantity = resultSet.getInt("quantity");
-    Integer price = resultSet.getInt("price");
-
+        Integer foodId = resultSet.getInt("foodid");
+        String name = resultSet.getString("name");
+        Integer quantity = resultSet.getInt("quantity");
+        Integer price = resultSet.getInt("price");
 
     return new Cart(foodId, name,quantity,price);
     }
 
+    private Order fetchOrders(ResultSet resultSet) throws SQLException {
+        Integer orderid = resultSet.getInt("orderid");
+        String name = resultSet.getString("name");
+        String address = resultSet.getString("address");
+        String orderedFood = resultSet.getString("orderedfood");
+        Integer price = resultSet.getInt("total");
+        boolean isfinished = resultSet.getBoolean("isfinished");
+        if (isfinished){
+            return new Order(orderid,name,address,orderedFood,price, "Finished");
+
+        } else {
+            return new Order(orderid,name,address,orderedFood,price, "Waiting for finish...");
+        }
+
+    }
 
 }
+
+//select carts.cartid, concat(users.firstname, ' ', users.lastname) as name ,concat(users.postalcode, ' ', users.city, ' ', users.address) as address, isfinished, foods.name, cartitems.quantity, cartitems.price from carts inner join users on carts.userid = users.userid full join cartitems on carts.cartid = cartitems.cartid inner join foods on cartitems.foodid=foods.foodid

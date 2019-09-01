@@ -7,6 +7,7 @@ import com.codecool.web.dao.database.DatabaseFoodDao;
 import com.codecool.web.dto.CartDto;
 import com.codecool.web.model.Cart;
 import com.codecool.web.model.Food;
+import com.codecool.web.model.Order;
 import com.codecool.web.model.User;
 import com.codecool.web.service.CartService;
 import com.codecool.web.service.FoodService;
@@ -22,8 +23,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/protected/cart")
-public class CartServlet extends AbstractServlet{
+@WebServlet("/protected/orders")
+public class OrderServlet extends AbstractServlet{
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -31,15 +32,10 @@ public class CartServlet extends AbstractServlet{
 
             CartDao cartDao = new DatabaseCartDao(connection);
             CartService cartService = new SimpleCartService(cartDao);
+             List<Order> orders = cartService.getOrders();
+            sendMessage(response,HttpServletResponse.SC_OK,orders);
 
-            User loggedInUser = (User) request.getSession().getAttribute("user");
-            int userId = loggedInUser.getId();
-
-            List<Cart> cartItems = cartService.findAllByUserId(userId);
-            int totalPrice = cartService.getTotalPrice(userId);
-
-            sendMessage(response, HttpServletResponse.SC_OK, new CartDto(cartItems, totalPrice));
-        } catch (SQLException | ServiceException se) {
+        } catch (SQLException se) {
             handleError(response, se, true);
         }
     }
@@ -51,28 +47,34 @@ public class CartServlet extends AbstractServlet{
             CartDao cartDao = new DatabaseCartDao(connection);
             CartService cartService = new SimpleCartService(cartDao);
 
-            FoodDao foodDao = new DatabaseFoodDao(connection);
-            FoodService foodService = new SimpleFoodService(foodDao);
+            Integer orderId = Integer.valueOf(request.getParameter("orderId"));
 
+            cartService.changeOrderStatus(orderId);
 
-            User loggedInUser = (User) request.getSession().getAttribute("user");
-            int userId = loggedInUser.getId();
-
-            int foodId = Integer.parseInt(request.getParameter("foodId"));
-            Food food = foodService.findById(foodId);
-
-            if(cartService.isFoodInCart(userId,food)){
-                cartService.increaseQuantity(userId,food.getFoodId());
-            } else {
-                cartService.AddToCart(userId,food);
-            }
-
-            Cart updatedCartItem = cartService.findFoodInCart(userId,foodId);
-
-            sendMessage(response,HttpServletResponse.SC_OK,updatedCartItem);
+            sendMessage(response,HttpServletResponse.SC_OK,orderId);
 
         } catch (SQLException se) {
             handleError(response,se,false);
+        }
+    }
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try (Connection connection = getConnection(request.getServletContext())) {
+                CartDao cartDao = new DatabaseCartDao(connection);
+                CartService cartService = new SimpleCartService(cartDao);
+                Integer userId = Integer.valueOf(request.getParameter("userId"));
+                if(cartService.checkCarts(userId)){
+                    System.out.println("Már van ilyen tesó");
+                } else {
+                    cartService.createCart(userId);
+                }
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

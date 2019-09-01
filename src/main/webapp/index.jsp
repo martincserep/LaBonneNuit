@@ -163,8 +163,32 @@
 </div>
 <!-- Restaurant sections -->
 <div id="restaurant-home-content" class="hidden content">
+    <div class="add-food-to-menu">
+        <form class="shipping-form" id="add-food" onsubmit="return false;">
+            <div class="city">
+                <i class="fas fa-city fa-1x" aria-hidden="true"></i>
+                <input type="text" name="name" id="name" placeholder="City">
+            </div>
+            <div class="address">
+                <i class="fas fa-map fa-1x" aria-hidden="true"></i>
+                <input type="text" name="image" id="image" placeholder="Address">
+            </div>
+            <div class="postal-code">
+                <i class="fas fa-mail-bulk fa-1x" aria-hidden="true"></i>
+                <input type="text" name="category" id="category" placeholder="Postal code">
+            </div>
+            <div class="postal-code">
+                <i class="fas fa-mail-bulk fa-1x" aria-hidden="true"></i>
+                <input type="text" name="price" id="price" placeholder="Postal code">
+            </div>
+            <button id="">Add</button>
+        </form>
+    </div>
 </div>
 <div id="restaurant-orders-content" class="hidden content">
+    <ul id="orders">
+
+    </ul>
 </div>
 <div id="restaurant-employees-content" class="hidden content">
     <ul id="users">

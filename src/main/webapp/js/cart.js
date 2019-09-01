@@ -53,3 +53,16 @@ function showCart(cartDto){
     document.getElementById("order-button").disabled = false;
   newInfo(customerCartContentDivEl, message);
 }
+
+function sendOrder() {
+  const user = getAuthorization();
+
+  const params = new URLSearchParams();
+  params.append('userId', user.userId);
+
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', onCartResponse);
+  xhr.addEventListener('error', onNetworkError);
+  xhr.open('GET','protected/cart?' + params.toString());
+  xhr.send()
+}

@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS cart CASCADE;
+DROP TABLE IF EXISTS cartitems CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS foods CASCADE;
-DROP TABLE IF EXISTS ordersdetail CASCADE;
+DROP TABLE IF EXISTS carts CASCADE;
 DROP TABLE IF EXISTS orders CASCADE;
 
 CREATE TABLE users(
@@ -26,41 +26,45 @@ CREATE TABLE foods(
                       category varchar(30)
 );
 
-CREATE TABLE cart(
+
+
+CREATE TABLE carts(
+                      cartid SMALLSERIAL PRIMARY KEY,
+                      userid SMALLINT NOT NULL,
+                      orderedfoods VARCHAR,
+                      price FLOAT,
+                      isfinished BOOLEAN DEFAULT FALSE,
+                      FOREIGN KEY (userid) REFERENCES users(userid)
+);
+CREATE TABLE cartitems(
                      userid SMALLINT,
                      foodid SMALLINT,
+                     cartid SMALLINT,
                      quantity SMALLINT DEFAULT 1,
-                     price smallint,
+                     price INTEGER,
                      FOREIGN KEY (userid) REFERENCES users(userid),
-                     FOREIGN KEY (foodid) REFERENCES foods(foodid)
+                     FOREIGN KEY (foodid) REFERENCES foods(foodid),
+                     FOREIGN KEY (cartid) REFERENCES carts(cartid)
+
 );
+
 
 CREATE TABLE orders(
                        orderid SMALLSERIAL PRIMARY KEY,
                        userid SMALLINT NOT NULL,
-                       total FLOAT NOT NULL,
-                       foodid SMALLINT NOT NULL,
-                       quantity SMALLINT NOT NULL DEFAULT 1,
-                       unitcost FLOAT NOT NULL,
-                       addressid SMALLINT NOT NULL,
-                       orderdate TIMESTAMP,
-                       isfinished BOOLEAN
+                       cartid SMALLINT,
+                       FOREIGN KEY (userid) REFERENCES users(userid),
+                       FOREIGN KEY (cartid) REFERENCES carts(cartid)
+
 );
-
-/*CREATE TABLE ordersdetail (
-                       id SMALLSERIAL PRIMARY KEY,
-                       orderid SMALLINT NOT NULL,
-                       foodid SMALLINT NOT NULL,
-                       quantity SMALLINT NOT NULL DEFAULT 1,
-                       unitcost FLOAT NOT NULL,
-                       FOREIGN KEY (orderid) REFERENCES orders(orderid),
-                       FOREIGN KEY (foodid) REFERENCES foods(foodid)
-);*/
-
+/*
+select CONCAT(firstname, ' ', lastname) as name, CONCAT(postalcode, ' ', city, ' ',address) as address from users
+*/
 INSERT INTO users (firstname,lastname,phonenumber,email,username,password,userrole) VALUES
 ('Béla','Kiss','06707654321','bela@bela.hu', 'bela','bela','EMPLOYEE'),
 ('Sándor','Nagy','06707654321','sanyi@sanyi.hu', 'sanyi','sanyi','CUSTOMER'),
 ('Martin','Cserép','06701234567','martin@martin.hu', 'martin','martin','MANAGER');
+
 
 INSERT INTO foods (name, price, image, category) VALUES
 ('Fried shrimps',2480,'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2018/08/cajun-fried-shrimp.jpg?itok=e9Rzf_k5','appetizers'),
@@ -73,3 +77,4 @@ INSERT INTO foods (name, price, image, category) VALUES
 ('Flambéed chicken with asparagus',2580,'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--52847_12.jpg?itok=42e3D3QT','main-dishes'),
 ('Mango-Passion fruit roulade',1480,'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--25529_12.jpg?itok=A6y7VfNE','desserts'),
 ('Belgian chocolate cake',1480,'https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe_images/recipe-image-legacy-id--1043451_11.jpg?itok=Z_w2WOYB','desserts');
+
